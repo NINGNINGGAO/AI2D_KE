@@ -1,0 +1,33 @@
+$** *** *** *** *** *** *** *** Fatal *** *** *** *** *** *** *** **$
+Build Info: 'alps-vf-mp-s0.mp1unknown:alps-vf-mp-s0.mp1unknown-V17.23_reallytek.s0mp1rc.k61v1.64.bsp_P18.V13.8_reallytek.v0mp1rc.k6991v1.64_P2:mt6789:S01,Infinix/X6886-OP/Infinix-X6886:15/AP3A.240'
+MSSI Info: 'Infinix/TSSI/FULL-64-ARMV82:15/AP3A.240905.015.A2/250714V998:user/release-keys'
+MGVI Info: 'mgvi_64_nfc_armv82'
+MGK Info: 'mgk_64_entry_level_k510'
+VF System Info: 'unknown:alps-mp-v0.mp1.rc-V13.8_reallytek.v0mp1rc.k6991v1.64_P2'
+Exception Log Time:[Tue Jul 15 17:32:48 CST 2025] [18.75017]
+
+Exception Class: Kernel (KE)
+PC is at [<ffffffdf725b9158>] pick_next_task_fair+0x32c/0x434
+LR is at [<ffffffdf725b914c>] pick_next_task_fair+0x320/0x434
+
+Current Executing Process:
+[kworker/u16:3, 267][kthreadd, 2]
+
+Backtrace:
+[<ffffffdf724abff8>] die_kernel_fault+0x80/0x94
+[<ffffffdf724abf28>] __do_kernel_fault+0x23c/0x28c     
+[<ffffffdf73e11e90>] do_page_fault+0xb0/0x858  
+[<ffffffdf73e11dc0>] do_translation_fault+0x44/0x64    
+[<ffffffdf724ab2f4>] do_mem_abort+0x68/0x164   
+[<ffffffdf73b55bd0>] el1_abort+0x40/0x68       
+[<ffffffdf73b55b5c>] el1_sync_handler+0x54/0x88
+[<ffffffdf72412488>] el1_sync+0x88/0x140       
+[<ffffffdf725b9158>] pick_next_task_fair+0x32c/0x434   
+[<ffffffdf73e021a4>] __schedule+0x308/0xc48    
+[<ffffffdf73e02b60>] schedule+0x7c/0x164       
+[<ffffffdf72570bb8>] worker_thread+0x558/0x920 
+[<ffffffdf7257f498>] kthread+0x14c/0x200       
+[<ffffffdf72415918>] ret_from_fork+0xc/0x30    
+
+
+$** *** *** *** *** *** *** *** Fatal *** *** *** *** *** *** *** **$

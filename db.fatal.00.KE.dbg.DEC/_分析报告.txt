@@ -1,0 +1,238 @@
+== 异常报告v2.2(仅供参考) ==
+报告解读: MediaTek On-Line> Quick Start> NE/KE分析报告解读> KE分析报告
+详细描述: pick_next_task_fair()从错误的地址(0x0000000000000150)读数据，请结合崩溃进程调用栈检查相关代码
+平台    : MT6789 (9B898026,2FDB5E8D)
+版本    : alps-vf-mp-s0.mp1unknown-V17.23_reallytek.s0mp1rc.k61v1.64.bsp/??
+异常时间: 18.543333秒, Tue Jul 15 17:32:48 CST 2025
+
+
+== 平台信息 ==
+-- CPU 0 1 [2] 3 4 5 6 7 --
+PTP ver: 0
+--  LPDDR4(8G)|UFS --
+Storage ver: 0016
+vcore dvfs opp: [87.435661]0(725mV, 4266MHz)
+已热重启: 582次
+-- Low Power --
+SPM last pc: 0x3a4
+
+
+== CPU信息 ==
+崩溃CPU信息:
+   CPU2: (null), pid: 0, 中断: 关
+   本地调用栈:
+	vmlinux  pick_next_task_fair() + 812
+	vmlinux  __schedule() + 776
+	vmlinux  schedule() + 124
+	vmlinux  worker_thread() + 1368
+	vmlinux  kthread() + 332
+	vmlinux  ret_from_fork() + 16
+	== 栈结束 ==
+   对应汇编指令:
+	行号  地址               指令			提示
+	      FFFFFFDF725B914C:  LDR X8, [SP, #0x10]	; 执行异常	; 0xFFFFFF80CC1300C0 != 0x0 <- [vmalloc:0xFFFFFFC008FEBD10]
+	      FFFFFFDF725B9150:  LDR X1, [X8, #0x148]	; 0 <- [0xFFFFFF80CC130208]
+	      FFFFFFDF725B9158:  LDR X21, [X1, #0x150]	; 进程停止在这里
+	当时的寄存器值:
+	X0: FFFFFF80EB3BE820,  X1: 0000000000000000,  X2: 0000000000000000,  X3: FFFFFF80D105A408
+	X4: FFFFFFC008FEBBC0,  X5: 00000000C5672A10,  X6: 01143E49035E3650,  X7: 342E38312020205B
+	X8: FFFFFF80CC1300C0,  X9: 0000000000100000,  X10: 0000000100000002, X11: FFFFFF80D0C53D68
+	X12: 0000000000218FA6, X13: 00000000002191C0, X14: FFFFFFDF74B6A850, X15: 0000000000000A8C
+	X16: 0000000000000A8C, X17: 0000000000000A8C, X18: FFFFFFC008F95028, X19: FFFFFF81D8F1CE40
+	X20: 0000000000000000, X21: 0000000000000000, X22: 0000000000000000, X23: FFFFFF80D11BDC80
+	X24: 0000000000000004, X25: FFFFFFDF74D88000, X26: FFFFFF80D11BE378, X27: FFFFFFDF746F2020
+	X28: FFFFFFDF73C1B6E8, X29: FFFFFFC008FEBD20, X30: FFFFFFDF725B914C, SP: FFFFFFC008FEBD00
+	PC: FFFFFFDF725B9158
+
+其他CPU信息:
+   CPU0: (null), pid: 0, 中断: 关
+   本地调用栈:
+	pinctrl_mtk_v2.ko  0xFFFFFFDF6E21D25C()
+	pinctrl_mtk_v2.ko  0xFFFFFFDF6E21F798()
+	vmlinux            gpiod_get_value() + 124
+	authon.ko          0xFFFFFFDF6F1D0014()
+	authon.ko          0xFFFFFFDF6F1D5E64()
+	authon.ko          0xFFFFFFDF6F1D5988()
+	authon.ko          0xFFFFFFDF6F1D7CD4()
+	authon.ko          0xFFFFFFDF6F1D3E68()
+	authon.ko          0xFFFFFFDF6F1D2478()
+	vmlinux            process_one_work() + 568
+	vmlinux            worker_thread() + 1008
+	vmlinux            kthread() + 332
+	vmlinux            ret_from_fork() + 16
+	== 栈结束 ==
+
+   CPU1: (null), pid: 0, 中断: 关
+   本地调用栈:
+	vmlinux       queued_spin_lock_slowpath() + 444
+	vmlinux       _raw_spin_lock() + 140
+	scheduler.ko  0xFFFFFFDF6FEBE278()
+	scheduler.ko  0xFFFFFFDF6FEB87C0()
+	scheduler.ko  0xFFFFFFDF6FEB8818(参数2=0xFFFFFF81D8E56E40)
+	vmlinux       trace_android_vh_scheduler_tick() + 172
+	vmlinux       scheduler_tick() + 700
+	vmlinux       update_process_times() + 224
+	vmlinux       tick_sched_timer() + 308
+	vmlinux       __run_hrtimer() + 304
+	vmlinux       hrtimer_interrupt() + 464
+	vmlinux       arch_timer_handler_virt() + 88
+	vmlinux       handle_percpu_devid_irq() + 188
+	vmlinux       __handle_domain_irq() + 308
+	vmlinux       gic_handle_irq.30586() + 104
+	vmlinux       el0_irq_naked() + 92
+	== 栈结束 ==
+
+   CPU3: (null), pid: 0, 中断: 关
+   本地调用栈:
+	vmlinux       queued_spin_lock_slowpath() + 136
+	vmlinux       _raw_spin_lock() + 140
+	scheduler.ko  0xFFFFFFDF6FEB86AC()
+	scheduler.ko  0xFFFFFFDF6FEB8818(参数2=0xFFFFFF81D8E98E40)
+	vmlinux       trace_android_vh_scheduler_tick() + 172
+	vmlinux       scheduler_tick() + 700
+	vmlinux       update_process_times() + 224
+	vmlinux       tick_sched_timer() + 308
+	vmlinux       __run_hrtimer() + 304
+	vmlinux       hrtimer_interrupt() + 464
+	vmlinux       arch_timer_handler_virt() + 88
+	vmlinux       handle_percpu_devid_irq() + 188
+	vmlinux       __handle_domain_irq() + 308
+	vmlinux       gic_handle_irq.30586() + 104
+	vmlinux       el1_irq() + 224
+	== 栈结束 ==
+
+   CPU4: (null), pid: 0, 中断: 关
+   本地调用栈:
+	vmlinux       queued_spin_lock_slowpath() + 512
+	vmlinux       _raw_spin_lock_irqsave() + 176
+	scheduler.ko  0xFFFFFFDF6FEBCFE4()
+	vmlinux       newidle_balance() + 136
+	vmlinux       pick_next_task_fair() + 88
+	vmlinux       __schedule() + 776
+	vmlinux       schedule() + 124
+	vmlinux       wait_on_page_bit_common() + 916
+	vmlinux       lock_page_maybe_drop_mmap() + 272
+	vmlinux       filemap_fault() + 1424
+	vmlinux       __do_fault() + 192
+	vmlinux       do_read_fault() + 388
+	vmlinux       handle_pte_fault() + 316
+	vmlinux       handle_mm_fault() + 788
+	vmlinux       do_page_fault() + 1240
+	vmlinux       do_translation_fault() + 68
+	vmlinux       do_mem_abort() + 104
+	vmlinux       el0_da() + 32
+	vmlinux       el0_sync_handler() + 196
+	vmlinux       el0_sync() + 436
+	== 栈结束 ==
+
+   CPU5: (null), pid: 0, 中断: 关
+   本地调用栈:
+	vmlinux       queued_spin_lock_slowpath() + 444
+	vmlinux       _raw_spin_lock_irqsave() + 176
+	scheduler.ko  0xFFFFFFDF6FEBCFE4()
+	vmlinux       newidle_balance() + 136
+	vmlinux       pick_next_task_fair() + 88
+	vmlinux       __schedule() + 776
+	vmlinux       schedule() + 124
+	vmlinux       wait_on_page_bit_common() + 916
+	vmlinux       lock_page_maybe_drop_mmap() + 272
+	vmlinux       filemap_fault() + 1424
+	vmlinux       __do_fault() + 192
+	vmlinux       do_read_fault() + 388
+	vmlinux       handle_pte_fault() + 316
+	vmlinux       handle_mm_fault() + 788
+	vmlinux       do_page_fault() + 1240
+	vmlinux       do_translation_fault() + 68
+	vmlinux       do_mem_abort() + 104
+	vmlinux       el0_ia() + 96
+	vmlinux       el0_sync_handler() + 172
+	vmlinux       el0_sync() + 436
+	== 栈结束 ==
+
+   CPU6: (null), pid: 0, 中断: 关
+   本地调用栈:
+	vmlinux       queued_spin_lock_slowpath() + 444
+	vmlinux       _raw_spin_lock_irqsave() + 176
+	scheduler.ko  0xFFFFFFDF6FEBCFE4()
+	vmlinux       newidle_balance() + 136
+	vmlinux       pick_next_task_fair() + 88
+	vmlinux       __schedule() + 776
+	vmlinux       schedule() + 124
+	vmlinux       wait_on_page_bit_common() + 916
+	vmlinux       lock_page_maybe_drop_mmap() + 272
+	vmlinux       filemap_fault() + 1424
+	vmlinux       __do_fault() + 192
+	vmlinux       do_read_fault() + 388
+	vmlinux       handle_pte_fault() + 316
+	vmlinux       handle_mm_fault() + 788
+	vmlinux       do_page_fault() + 1240
+	vmlinux       do_translation_fault() + 68
+	vmlinux       do_mem_abort() + 104
+	vmlinux       el0_da() + 32
+	vmlinux       el0_sync_handler() + 196
+	vmlinux       el0_sync() + 436
+	== 栈结束 ==
+
+   CPU7: (null), pid: 0, 中断: 关
+   本地调用栈:
+	vmlinux  queued_spin_lock_slowpath(参数1=0xFFFFFF81D8F1CE40) + 136
+	vmlinux  scheduler_tick() + 936
+	vmlinux  update_process_times() + 224
+	vmlinux  tick_sched_timer() + 308
+	vmlinux  __run_hrtimer() + 304
+	vmlinux  hrtimer_interrupt() + 464
+	vmlinux  arch_timer_handler_virt() + 88
+	vmlinux  handle_percpu_devid_irq() + 188
+	vmlinux  __handle_domain_irq() + 308
+	vmlinux  gic_handle_irq.30586() + 104
+	vmlinux  el1_irq() + 224
+	== 栈结束 ==
+
+== 日志信息 ==
+kernel log:
+[    4.743340] [T1600001] WARNING: CPU: 6 PID: 1 at drivers/regulator/core.c:2856 _regulator_disable+0x74/0x48c
+[    4.849636] [T1600001] Call trace:
+[    4.875325] [T1600001] WARNING: CPU: 6 PID: 1 at fs/proc/generic.c:382 proc_register+0x1bc/0x320
+[    4.963990] [T1600001] Call trace:
+[    5.622877] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4
+[    5.762258] [T1700001] Call trace:
+[    5.778345] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4
+[    5.880290] [T1700001] Call trace:
+[    5.895720] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4
+[    5.997636] [T1700001] Call trace:
+[    6.012752] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4
+[    6.114673] [T1700001] Call trace:
+[    6.130112] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4
+[    6.232021] [T1700001] Call trace:
+[    6.247878] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4
+[    6.349829] [T1700001] Call trace:
+[    6.365266] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4
+[    6.467221] [T1700001] Call trace:
+[    6.483049] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4
+[    6.584054] [T1700001] Call trace:
+[    6.601495] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4
+[    6.703400] [T1700001] Call trace:
+[    6.721042] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4
+[    6.823000] [T1700001] Call trace:
+[    8.303972] [T1700001] e2fsck: WARNING: linker: Warning: failed to find generated linker configuration from "/linkerconfig/ld.config.txt"
+[   13.264482] [T1600408] WARNING: CPU: 6 PID: 408 at fs/proc/generic.c:382 proc_register+0x1bc/0x320
+[   13.484928] [T1600408] Call trace:
+[   13.879731] [T1600408] Call trace:
+[   14.958214] [T1600891] WARNING: Unprivileged eBPF is enabled, data leaks possible via Spectre v2 BHB attacks!
+[   18.405137] [T1700267] BUG: scheduling while atomic: kworker/u16:3/267/0x00000002
+[   18.441286] [T1700267] Call trace:
+[   18.459691] [T1700267] BUG: workqueue leaked lock or atomic: kworker/u16:3/0xffffffff/267
+[   18.464448] [T1700267] Call trace:
+[   18.465839] [T1700267] BUG: workqueue leaked lock or atomic: kworker/u16:3/0xffffffff/267
+[   18.468880] [T1700267] Call trace:
+[   18.471529] [T1700267] BUG: scheduling while atomic: kworker/u16:3/267/0x00000000
+[   18.537725] [T1200267] Call trace:
+
+
+分析KE还需以下文件, 请提供out/target/product/$proj/obj/KERNEL_OBJ目录下相应的文件(必须同一次编译生成, 详情请查看MOL上的'[FAQ06985]KE发生后如何判断vmlinux和log是否匹配'):
+scheduler.ko
+authon.ko
+mtk_iommu.ko
+iommu_debug.ko
+pinctrl_mtk_v2.ko
+vmlinux

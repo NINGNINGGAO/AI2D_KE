@@ -1,0 +1,1957 @@
+{
+    "db_path": "D:\\jira\\x6886\\qlc\\151687055M000180\\db.fatal.00.KE.dbg.DEC",
+    "basic_info": {
+        "exception_type": "KE",
+        "sub_type": "SCHED_ISSUE",
+        "summary": "[   18.405137] [T1700267] BUG: scheduling while atomic: kworker/u16:3/267/0x00000002",
+        "exception_time": {
+            "kernel_time": "18.543333s",
+            "android_time": "Tue Jul 15 17:32:48 CST 2025",
+            "exception_log_time": "Tue Jul 15 17:32:48 CST 2025"
+        },
+        "owner": {
+            "branch": "customer_version",
+            "project": "customer_version",
+            "owner_name": "customer_version",
+            "owner_id": "customer_version",
+            "owner_dept": "customer_version",
+            "owner_phone": "customer_version",
+            "layer": "customer_version",
+            "source": "customer_version",
+            "role": "customer_version",
+            "manager": "customer_version",
+            "owner_resigned": "customer_version",
+            "input": "kernel-5.10\\kernel/sched\\fair.c"
+        },
+        "build_info": {
+            "raw_info": "alps-vf-mp-s0.mp1unknown:alps-vf-mp-s0.mp1unknown-V17.23_reallytek.s0mp1rc.k61v1.64.bsp_P18.V13.8_reallytek.v0mp1rc.k6991v1.64_P2:mt6789:S01,Infinix/X6886-OP/Infinix-X6886:15/AP3A.240",
+            "branch": "alps-vf-mp-s0.mp1unknown",
+            "version": "alps-vf-mp-s0.mp1unknown-V17.23_reallytek.s0mp1rc.k61v1.64.bsp_P18.V13.8_reallytek.v0mp1rc.k6991v1.64_P2",
+            "platform": "mt6789",
+            "project": "unknown",
+            "build_type": "unknown",
+            "mssi": "N/A",
+            "mgvi": "mgvi_64_nfc_armv82",
+            "mgk": "mgk_64_entry_level_k510",
+            "vf_sys_branch": "unknown",
+            "vf_sys_version": "alps-mp-v0.mp1.rc-V13.8_reallytek.v0mp1rc.k6991v1.64_P2"
+        },
+        "symbol_path": "D:\\jira\\x6886\\qlc\\151687055M000180\\db.fatal.00.KE.dbg.DEC\\symbols",
+        "reference": [
+            "https://wiki.mediatek.inc/display/~MTK23437/scheduling"
+        ],
+        "gat_version": "gat-win32-x86_64-4.2214.1.c",
+        "execute_time": "20250718-112011"
+    },
+    "detail_info": {
+        "type": "SCHED_ISSUE",
+        "pc": [
+            "pick_next_task_fair",
+            "out/android12-5.10/common\\kernel/sched\\fair.c:7416"
+        ],
+        "lr": [
+            "pick_next_task_fair",
+            "out/android12-5.10/common\\kernel/sched\\fair.c:7426"
+        ],
+        "cfi_callee": [],
+        "process": "[kworker/u16:3, 267][kthreadd, 2]",
+        "pre_bt": [],
+        "bt": [
+            [
+                "die_kernel_fault",
+                "out/android12-5.10/common\\arch/arm64/mm\\fault.c:300"
+            ],
+            [
+                "__do_kernel_fault",
+                "out/android12-5.10/common\\arch/arm64/mm\\fault.c:408"
+            ],
+            [
+                "do_page_fault",
+                "out/android12-5.10/common\\arch/arm64/mm\\fault.c:694"
+            ],
+            [
+                "do_translation_fault",
+                "out/android12-5.10/common\\arch/arm64/mm\\fault.c:705"
+            ],
+            [
+                "do_mem_abort",
+                "out/android12-5.10/common\\arch/arm64/mm\\fault.c:848"
+            ],
+            [
+                "el1_abort",
+                "out/android12-5.10/common\\arch/arm64/kernel\\entry-common.c:122"
+            ],
+            [
+                "el1_sync_handler",
+                "out/android12-5.10/common\\arch/arm64/kernel\\entry-common.c:205"
+            ],
+            [
+                "el1_sync",
+                "out/android12-5.10/common\\common/arch/arm64/kernel\\entry.S:770"
+            ],
+            [
+                "pick_next_task_fair",
+                "out/android12-5.10/common\\kernel/sched\\fair.c:7416"
+            ],
+            [
+                "__schedule",
+                "out/android12-5.10/common\\kernel/sched\\core.c:4762"
+            ],
+            [
+                "schedule",
+                "out/android12-5.10/common\\kernel/sched\\core.c:4873"
+            ],
+            [
+                "worker_thread",
+                "out/android12-5.10/common\\kernel\\workqueue.c:2466"
+            ],
+            [
+                "kthread",
+                "out/android12-5.10/common\\kernel\\kthread.c:313"
+            ],
+            [
+                "ret_from_fork",
+                "out/android12-5.10/common\\common/arch/arm64/kernel\\entry.S:1122"
+            ]
+        ],
+        "detail": "[   18.405137] [T1700267] BUG: scheduling while atomic: kworker/u16:3/267/0x00000002",
+        "reference": [
+            "https://wiki.mediatek.inc/display/~MTK23437/scheduling"
+        ],
+        "platform": "MT6789",
+        "HRID": "9B898026,2FDB5E8D",
+        "customer_version": "N/A",
+        "kernel_time": "18.543333s",
+        "android_time": "Tue Jul 15 17:32:48 CST 2025",
+        "ro_diff": [],
+        "cpu_info": {
+            "online": " 0 1 [2] 3 4 5 6 7"
+        },
+        "eMCP": {
+            "DRAM_type": "LPDDR4",
+            "DRAM_vendor": "",
+            "DRAM_size": "8G",
+            "storage_type": "UFS",
+            "storage_version": "0016",
+            "warm_reboot_count": 582
+        },
+        "low_power": {
+            "SPM_last_pc": "0x3a4"
+        },
+        "crashed_cpu": [
+            {
+                "core": 2,
+                "name": "kworker/u16:3",
+                "pid": 267,
+                "priority": 120,
+                "interrupt": "disabled",
+                "state": "online",
+                "backtrace": [
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "is_same_group",
+                        "parameters": "se=0, pse=0",
+                        "offset": 304,
+                        "file": "kernel/sched/fair.c",
+                        "line": 409
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "pick_next_task_fair",
+                        "parameters": "rf=0xFFFFFFC008FEBD88",
+                        "offset": 812,
+                        "file": "kernel/sched/fair.c",
+                        "line": 7416
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "pick_next_task",
+                        "parameters": "rf=0xFFFFFFC008FEBD88",
+                        "offset": 48,
+                        "file": "kernel/sched/core.c",
+                        "line": 4611
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__schedule",
+                        "parameters": "preempt=false",
+                        "offset": 776,
+                        "file": "kernel/sched/core.c",
+                        "line": 4762
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "schedule",
+                        "parameters": "N/A",
+                        "offset": 124,
+                        "file": "kernel/sched/core.c",
+                        "line": 4873
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "worker_thread",
+                        "parameters": "N/A",
+                        "offset": 1368,
+                        "file": "kernel/workqueue.c",
+                        "line": 2466
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "kthread",
+                        "parameters": "N/A",
+                        "offset": 332,
+                        "file": "kernel/kthread.c",
+                        "line": 313
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF7241591C",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "common/arch/arm64/kernel/entry.S",
+                        "line": 1122
+                    }
+                ],
+                "disassembly_code": [
+                    "line  addr               inst.          tips",
+                    "kernel/sched/fair.c",
+                    "7426: FFFFFFDF725B914C:  LDR X8, [SP, #0x10] ; execute error ; 0xFFFFFF80CC1300C0 != 0x0 <- [vmalloc:0xFFFFFFC008FEBD10]",
+                    "417 : FFFFFFDF725B9150:  LDR X1, [X8, #0x148] ; 0 <- [0xFFFFFF80CC130208]",
+                    "409 : FFFFFFDF725B9158:  LDR X21, [X1, #0x150] ; thread stop here",
+                    "current register values:",
+                    "X0: FFFFFF80EB3BE820,  X1: 0000000000000000,  X2: 0000000000000000,  X3: FFFFFF80D105A408",
+                    "X4: FFFFFFC008FEBBC0,  X5: 00000000C5672A10,  X6: 01143E49035E3650,  X7: 342E38312020205B",
+                    "X8: FFFFFF80CC1300C0,  X9: 0000000000100000,  X10: 0000000100000002, X11: FFFFFF80D0C53D68",
+                    "X12: 0000000000218FA6, X13: 00000000002191C0, X14: FFFFFFDF74B6A850, X15: 0000000000000A8C",
+                    "X16: 0000000000000A8C, X17: 0000000000000A8C, X18: FFFFFFC008F95028, X19: FFFFFF81D8F1CE40",
+                    "X20: 0000000000000000, X21: 0000000000000000, X22: 0000000000000000, X23: FFFFFF80D11BDC80",
+                    "X24: 0000000000000004, X25: FFFFFFDF74D88000, X26: FFFFFF80D11BE378, X27: FFFFFFDF746F2020",
+                    "X28: FFFFFFDF73C1B6E8, X29: FFFFFFC008FEBD20, X30: FFFFFFDF725B914C, SP: FFFFFFC008FEBD00",
+                    "PC: FFFFFFDF725B9158"
+                ]
+            }
+        ],
+        "other_cpus": [
+            {
+                "core": 0,
+                "name": "kworker/u16:1",
+                "pid": 9,
+                "priority": 120,
+                "interrupt": "disabled",
+                "state": "online",
+                "backtrace": [
+                    {
+                        "elf_name": "pinctrl_mtk_v2.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6E21D25C",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "pinctrl_mtk_v2.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6E21F798",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "gpiod_get_raw_value_commit",
+                        "parameters": "N/A",
+                        "offset": 56,
+                        "file": "drivers/gpio/gpiolib.c",
+                        "line": 2649
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "gpiod_get_value",
+                        "parameters": "N/A",
+                        "offset": 124,
+                        "file": "drivers/gpio/gpiolib.c",
+                        "line": 2813
+                    },
+                    {
+                        "elf_name": "authon.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6F1D0014",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "authon.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6F1D5E64",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "authon.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6F1D5988",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "authon.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6F1D7CD4",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "authon.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6F1D3E68",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "authon.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6F1D2478",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "process_one_work",
+                        "parameters": "N/A",
+                        "offset": 568,
+                        "file": "kernel/workqueue.c",
+                        "line": 2299
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "worker_thread",
+                        "parameters": "N/A",
+                        "offset": 1008,
+                        "file": "kernel/workqueue.c",
+                        "line": 2445
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "kthread",
+                        "parameters": "N/A",
+                        "offset": 332,
+                        "file": "kernel/kthread.c",
+                        "line": 313
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF7241591C",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "common/arch/arm64/kernel/entry.S",
+                        "line": 1122
+                    }
+                ]
+            },
+            {
+                "core": 1,
+                "name": "RenderEngine",
+                "pid": 1176,
+                "priority": 112,
+                "interrupt": "disabled",
+                "state": "online",
+                "backtrace": [
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "queued_spin_lock_slowpath",
+                        "parameters": "lock=0xFFFFFF81D8F1CE40",
+                        "offset": 444,
+                        "file": "kernel/locking/qspinlock.c",
+                        "line": 474
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "queued_spin_lock",
+                        "parameters": "N/A",
+                        "offset": 100,
+                        "file": "include/asm-generic/qspinlock.h",
+                        "line": 85
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "do_raw_spin_lock",
+                        "parameters": "N/A",
+                        "offset": 100,
+                        "file": "include/linux/spinlock.h",
+                        "line": 183
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__raw_spin_lock",
+                        "parameters": "N/A",
+                        "offset": 124,
+                        "file": "include/linux/spinlock_api_smp.h",
+                        "line": 143
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "_raw_spin_lock",
+                        "parameters": "N/A",
+                        "offset": 140,
+                        "file": "kernel/locking/spinlock.c",
+                        "line": 151
+                    },
+                    {
+                        "elf_name": "scheduler.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6FEBE278",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "scheduler.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6FEB87C0",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "scheduler.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6FEB8818",
+                        "parameters": "Para2=0xFFFFFF81D8E56E40",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__traceiter_android_vh_scheduler_tick",
+                        "parameters": "N/A",
+                        "offset": 24,
+                        "file": "include/trace/hooks/sched.h",
+                        "line": 45
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "trace_android_vh_scheduler_tick",
+                        "parameters": "rq=0xFFFFFFC00800BD18",
+                        "offset": 172,
+                        "file": "include/trace/hooks/sched.h",
+                        "line": 45
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "scheduler_tick",
+                        "parameters": "N/A",
+                        "offset": 700,
+                        "file": "kernel/sched/core.c",
+                        "line": 4276
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "update_process_times",
+                        "parameters": "N/A",
+                        "offset": 224,
+                        "file": "kernel/time/timer.c",
+                        "line": 1753
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "tick_sched_handle",
+                        "parameters": "N/A",
+                        "offset": 48,
+                        "file": "kernel/time/tick-sched.c",
+                        "line": 225
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "tick_sched_timer",
+                        "parameters": "N/A",
+                        "offset": 308,
+                        "file": "kernel/time/tick-sched.c",
+                        "line": 1389
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__run_hrtimer",
+                        "parameters": "now=0xFFFFFFC00800BEB0",
+                        "offset": 304,
+                        "file": "kernel/time/hrtimer.c",
+                        "line": 1585
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__hrtimer_run_queues",
+                        "parameters": "active_mask=15",
+                        "offset": 136,
+                        "file": "kernel/time/hrtimer.c",
+                        "line": 1649
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "hrtimer_interrupt",
+                        "parameters": "N/A",
+                        "offset": 464,
+                        "file": "kernel/time/hrtimer.c",
+                        "line": 1711
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "timer_handler",
+                        "parameters": "access=1",
+                        "offset": 88,
+                        "file": "drivers/clocksource/arm_arch_timer.c",
+                        "line": 647
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "arch_timer_handler_virt",
+                        "parameters": "N/A",
+                        "offset": 88,
+                        "file": "drivers/clocksource/arm_arch_timer.c",
+                        "line": 658
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "handle_percpu_devid_irq",
+                        "parameters": "N/A",
+                        "offset": 188,
+                        "file": "kernel/irq/chip.c",
+                        "line": 948
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "generic_handle_irq_desc",
+                        "parameters": "N/A",
+                        "offset": 32,
+                        "file": "include/linux/irqdesc.h",
+                        "line": 152
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__handle_domain_irq",
+                        "parameters": "lookup=true",
+                        "offset": 308,
+                        "file": "kernel/irq/irqdesc.c",
+                        "line": 702
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "handle_domain_irq",
+                        "parameters": "N/A",
+                        "offset": 8,
+                        "file": "include/linux/irqdesc.h",
+                        "line": 170
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "gic_handle_irq",
+                        "parameters": "N/A",
+                        "offset": 104,
+                        "file": "drivers/irqchip/irq-gic-v3.c",
+                        "line": 756
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF7241300C",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "common/arch/arm64/kernel/entry.S",
+                        "line": 657
+                    }
+                ]
+            },
+            {
+                "core": 3,
+                "name": "health@2.1-serv",
+                "pid": 920,
+                "priority": 120,
+                "interrupt": "disabled",
+                "state": "online",
+                "backtrace": [
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "queued_spin_lock_slowpath",
+                        "parameters": "lock=0xFFFFFFDF6FEC4080",
+                        "offset": 136,
+                        "file": "kernel/locking/qspinlock.c",
+                        "line": 382
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "queued_spin_lock",
+                        "parameters": "N/A",
+                        "offset": 100,
+                        "file": "include/asm-generic/qspinlock.h",
+                        "line": 85
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "do_raw_spin_lock",
+                        "parameters": "N/A",
+                        "offset": 100,
+                        "file": "include/linux/spinlock.h",
+                        "line": 183
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__raw_spin_lock",
+                        "parameters": "N/A",
+                        "offset": 124,
+                        "file": "include/linux/spinlock_api_smp.h",
+                        "line": 143
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "_raw_spin_lock",
+                        "parameters": "N/A",
+                        "offset": 140,
+                        "file": "kernel/locking/spinlock.c",
+                        "line": 151
+                    },
+                    {
+                        "elf_name": "scheduler.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6FEB86AC",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "scheduler.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6FEB8818",
+                        "parameters": "Para2=0xFFFFFF81D8E98E40",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__traceiter_android_vh_scheduler_tick",
+                        "parameters": "N/A",
+                        "offset": 24,
+                        "file": "include/trace/hooks/sched.h",
+                        "line": 45
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "trace_android_vh_scheduler_tick",
+                        "parameters": "rq=0xFFFFFFC00801BD18",
+                        "offset": 172,
+                        "file": "include/trace/hooks/sched.h",
+                        "line": 45
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "scheduler_tick",
+                        "parameters": "N/A",
+                        "offset": 700,
+                        "file": "kernel/sched/core.c",
+                        "line": 4276
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "update_process_times",
+                        "parameters": "N/A",
+                        "offset": 224,
+                        "file": "kernel/time/timer.c",
+                        "line": 1753
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "tick_sched_handle",
+                        "parameters": "N/A",
+                        "offset": 48,
+                        "file": "kernel/time/tick-sched.c",
+                        "line": 225
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "tick_sched_timer",
+                        "parameters": "N/A",
+                        "offset": 308,
+                        "file": "kernel/time/tick-sched.c",
+                        "line": 1389
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__run_hrtimer",
+                        "parameters": "now=0xFFFFFFC00801BEB0",
+                        "offset": 304,
+                        "file": "kernel/time/hrtimer.c",
+                        "line": 1585
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__hrtimer_run_queues",
+                        "parameters": "active_mask=15",
+                        "offset": 136,
+                        "file": "kernel/time/hrtimer.c",
+                        "line": 1649
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "hrtimer_interrupt",
+                        "parameters": "N/A",
+                        "offset": 464,
+                        "file": "kernel/time/hrtimer.c",
+                        "line": 1711
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "timer_handler",
+                        "parameters": "access=1",
+                        "offset": 88,
+                        "file": "drivers/clocksource/arm_arch_timer.c",
+                        "line": 647
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "arch_timer_handler_virt",
+                        "parameters": "N/A",
+                        "offset": 88,
+                        "file": "drivers/clocksource/arm_arch_timer.c",
+                        "line": 658
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "handle_percpu_devid_irq",
+                        "parameters": "N/A",
+                        "offset": 188,
+                        "file": "kernel/irq/chip.c",
+                        "line": 948
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "generic_handle_irq_desc",
+                        "parameters": "N/A",
+                        "offset": 32,
+                        "file": "include/linux/irqdesc.h",
+                        "line": 152
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__handle_domain_irq",
+                        "parameters": "lookup=true",
+                        "offset": 308,
+                        "file": "kernel/irq/irqdesc.c",
+                        "line": 702
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "handle_domain_irq",
+                        "parameters": "N/A",
+                        "offset": 8,
+                        "file": "include/linux/irqdesc.h",
+                        "line": 170
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "gic_handle_irq",
+                        "parameters": "N/A",
+                        "offset": 104,
+                        "file": "drivers/irqchip/irq-gic-v3.c",
+                        "line": 756
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF72412620",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "common/arch/arm64/kernel/entry.S",
+                        "line": 657
+                    }
+                ]
+            },
+            {
+                "core": 4,
+                "name": "camerahalserver",
+                "pid": 1326,
+                "priority": 120,
+                "interrupt": "disabled",
+                "state": "online",
+                "backtrace": [
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "queued_spin_lock_slowpath",
+                        "parameters": "lock=0xFFFFFF81D8F1CE40, val=0",
+                        "offset": 512,
+                        "file": "kernel/locking/qspinlock.c",
+                        "line": 511
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "queued_spin_lock",
+                        "parameters": "N/A",
+                        "offset": 108,
+                        "file": "include/asm-generic/qspinlock.h",
+                        "line": 85
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "do_raw_spin_lock_flags",
+                        "parameters": "N/A",
+                        "offset": 108,
+                        "file": "include/linux/spinlock.h",
+                        "line": 195
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__raw_spin_lock_irqsave",
+                        "parameters": "N/A",
+                        "offset": 156,
+                        "file": "include/linux/spinlock_api_smp.h",
+                        "line": 119
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "_raw_spin_lock_irqsave",
+                        "parameters": "N/A",
+                        "offset": 176,
+                        "file": "kernel/locking/spinlock.c",
+                        "line": 159
+                    },
+                    {
+                        "elf_name": "scheduler.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6FEBCFE4",
+                        "parameters": "Para4=0xFFFFFFC016A1B8C4, Para5=0xFFFFFFC016A1B8C0",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__traceiter_android_rvh_sched_newidle_balance",
+                        "parameters": "N/A",
+                        "offset": 24,
+                        "file": "include/trace/hooks/sched.h",
+                        "line": 101
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "trace_android_rvh_sched_newidle_balance",
+                        "parameters": "pulled_task=0xFFFFFFC016A1B8C4, done=0xFFFFFFC016A1B8C0",
+                        "offset": 60,
+                        "file": "include/trace/hooks/sched.h",
+                        "line": 101
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "newidle_balance",
+                        "parameters": "N/A",
+                        "offset": 136,
+                        "file": "kernel/sched/fair.c",
+                        "line": 10953
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "pick_next_task_fair",
+                        "parameters": "rf=0xFFFFFFC016A1B9B8",
+                        "offset": 88,
+                        "file": "kernel/sched/fair.c",
+                        "line": 7476
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "pick_next_task",
+                        "parameters": "rf=0xFFFFFFC016A1B9B8",
+                        "offset": 48,
+                        "file": "kernel/sched/core.c",
+                        "line": 4611
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__schedule",
+                        "parameters": "preempt=false",
+                        "offset": 776,
+                        "file": "kernel/sched/core.c",
+                        "line": 4762
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "schedule",
+                        "parameters": "N/A",
+                        "offset": 124,
+                        "file": "kernel/sched/core.c",
+                        "line": 4873
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "io_schedule",
+                        "parameters": "N/A",
+                        "offset": 4,
+                        "file": "kernel/sched/core.c",
+                        "line": 6578
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "wait_on_page_bit_common",
+                        "parameters": "bit_nr=0, state=258, behavior=EXCLUSIVE",
+                        "offset": 916,
+                        "file": "mm/filemap.c",
+                        "line": 1282
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__lock_page_killable",
+                        "parameters": "N/A",
+                        "offset": 12,
+                        "file": "mm/filemap.c",
+                        "line": 1557
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "lock_page_maybe_drop_mmap",
+                        "parameters": "fpin=0xFFFFFFC016A1BB60",
+                        "offset": 272,
+                        "file": "mm/filemap.c",
+                        "line": 2603
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "filemap_fault",
+                        "parameters": "N/A",
+                        "offset": 1424,
+                        "file": "mm/filemap.c",
+                        "line": 2825
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__do_fault",
+                        "parameters": "N/A",
+                        "offset": 192,
+                        "file": "mm/memory.c",
+                        "line": 4066
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "do_read_fault",
+                        "parameters": "N/A",
+                        "offset": 388,
+                        "file": "mm/memory.c",
+                        "line": 4403
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "do_fault",
+                        "parameters": "N/A",
+                        "offset": 28,
+                        "file": "mm/memory.c",
+                        "line": 4531
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "handle_pte_fault",
+                        "parameters": "vmf=0xFFFFFFC016A1BD20",
+                        "offset": 316,
+                        "file": "mm/memory.c",
+                        "line": 4795
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__handle_mm_fault",
+                        "parameters": "N/A",
+                        "offset": 436,
+                        "file": "mm/memory.c",
+                        "line": 4950
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "handle_mm_fault",
+                        "parameters": "N/A",
+                        "offset": 788,
+                        "file": "mm/memory.c",
+                        "line": 5335
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__do_page_fault",
+                        "parameters": "N/A",
+                        "offset": 48,
+                        "file": "arch/arm64/mm/fault.c",
+                        "line": 515
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "do_page_fault",
+                        "parameters": "N/A",
+                        "offset": 1240,
+                        "file": "arch/arm64/mm/fault.c",
+                        "line": 615
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "do_translation_fault",
+                        "parameters": "N/A",
+                        "offset": 68,
+                        "file": "arch/arm64/mm/fault.c",
+                        "line": 705
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "do_mem_abort",
+                        "parameters": "N/A",
+                        "offset": 104,
+                        "file": "arch/arm64/mm/fault.c",
+                        "line": 848
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "el0_da",
+                        "parameters": "N/A",
+                        "offset": 32,
+                        "file": "arch/arm64/kernel/entry-common.c",
+                        "line": 256
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "el0_sync_handler",
+                        "parameters": "N/A",
+                        "offset": 196,
+                        "file": "arch/arm64/kernel/entry-common.c",
+                        "line": 376
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF724128B4",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "common/arch/arm64/kernel/entry.S",
+                        "line": 657
+                    }
+                ]
+            },
+            {
+                "core": 5,
+                "name": "audioserver",
+                "pid": 995,
+                "priority": 120,
+                "interrupt": "disabled",
+                "state": "online",
+                "backtrace": [
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "queued_spin_lock_slowpath",
+                        "parameters": "lock=0xFFFFFF81D8F1CE40",
+                        "offset": 444,
+                        "file": "kernel/locking/qspinlock.c",
+                        "line": 474
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "queued_spin_lock",
+                        "parameters": "N/A",
+                        "offset": 108,
+                        "file": "include/asm-generic/qspinlock.h",
+                        "line": 85
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "do_raw_spin_lock_flags",
+                        "parameters": "N/A",
+                        "offset": 108,
+                        "file": "include/linux/spinlock.h",
+                        "line": 195
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__raw_spin_lock_irqsave",
+                        "parameters": "N/A",
+                        "offset": 156,
+                        "file": "include/linux/spinlock_api_smp.h",
+                        "line": 119
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "_raw_spin_lock_irqsave",
+                        "parameters": "N/A",
+                        "offset": 176,
+                        "file": "kernel/locking/spinlock.c",
+                        "line": 159
+                    },
+                    {
+                        "elf_name": "scheduler.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6FEBCFE4",
+                        "parameters": "Para4=0xFFFFFFC015B4B8A4, Para5=0xFFFFFFC015B4B8A0",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__traceiter_android_rvh_sched_newidle_balance",
+                        "parameters": "N/A",
+                        "offset": 24,
+                        "file": "include/trace/hooks/sched.h",
+                        "line": 101
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "trace_android_rvh_sched_newidle_balance",
+                        "parameters": "pulled_task=0xFFFFFFC015B4B8A4, done=0xFFFFFFC015B4B8A0",
+                        "offset": 60,
+                        "file": "include/trace/hooks/sched.h",
+                        "line": 101
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "newidle_balance",
+                        "parameters": "N/A",
+                        "offset": 136,
+                        "file": "kernel/sched/fair.c",
+                        "line": 10953
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "pick_next_task_fair",
+                        "parameters": "rf=0xFFFFFFC015B4B998",
+                        "offset": 88,
+                        "file": "kernel/sched/fair.c",
+                        "line": 7476
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "pick_next_task",
+                        "parameters": "rf=0xFFFFFFC015B4B998",
+                        "offset": 48,
+                        "file": "kernel/sched/core.c",
+                        "line": 4611
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__schedule",
+                        "parameters": "preempt=false",
+                        "offset": 776,
+                        "file": "kernel/sched/core.c",
+                        "line": 4762
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "schedule",
+                        "parameters": "N/A",
+                        "offset": 124,
+                        "file": "kernel/sched/core.c",
+                        "line": 4873
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "io_schedule",
+                        "parameters": "N/A",
+                        "offset": 4,
+                        "file": "kernel/sched/core.c",
+                        "line": 6578
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "wait_on_page_bit_common",
+                        "parameters": "bit_nr=0, state=258, behavior=EXCLUSIVE",
+                        "offset": 916,
+                        "file": "mm/filemap.c",
+                        "line": 1282
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__lock_page_killable",
+                        "parameters": "N/A",
+                        "offset": 12,
+                        "file": "mm/filemap.c",
+                        "line": 1557
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "lock_page_maybe_drop_mmap",
+                        "parameters": "fpin=0xFFFFFFC015B4BB40",
+                        "offset": 272,
+                        "file": "mm/filemap.c",
+                        "line": 2603
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "filemap_fault",
+                        "parameters": "N/A",
+                        "offset": 1424,
+                        "file": "mm/filemap.c",
+                        "line": 2825
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__do_fault",
+                        "parameters": "N/A",
+                        "offset": 192,
+                        "file": "mm/memory.c",
+                        "line": 4066
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "do_read_fault",
+                        "parameters": "N/A",
+                        "offset": 388,
+                        "file": "mm/memory.c",
+                        "line": 4403
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "do_fault",
+                        "parameters": "N/A",
+                        "offset": 28,
+                        "file": "mm/memory.c",
+                        "line": 4531
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "handle_pte_fault",
+                        "parameters": "vmf=0xFFFFFFC015B4BD00",
+                        "offset": 316,
+                        "file": "mm/memory.c",
+                        "line": 4795
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__handle_mm_fault",
+                        "parameters": "N/A",
+                        "offset": 436,
+                        "file": "mm/memory.c",
+                        "line": 4950
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "handle_mm_fault",
+                        "parameters": "N/A",
+                        "offset": 788,
+                        "file": "mm/memory.c",
+                        "line": 5335
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__do_page_fault",
+                        "parameters": "N/A",
+                        "offset": 48,
+                        "file": "arch/arm64/mm/fault.c",
+                        "line": 515
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "do_page_fault",
+                        "parameters": "N/A",
+                        "offset": 1240,
+                        "file": "arch/arm64/mm/fault.c",
+                        "line": 615
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "do_translation_fault",
+                        "parameters": "N/A",
+                        "offset": 68,
+                        "file": "arch/arm64/mm/fault.c",
+                        "line": 705
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "do_mem_abort",
+                        "parameters": "N/A",
+                        "offset": 104,
+                        "file": "arch/arm64/mm/fault.c",
+                        "line": 848
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "el0_ia",
+                        "parameters": "N/A",
+                        "offset": 96,
+                        "file": "arch/arm64/kernel/entry-common.c",
+                        "line": 273
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "el0_sync_handler",
+                        "parameters": "N/A",
+                        "offset": 172,
+                        "file": "arch/arm64/kernel/entry-common.c",
+                        "line": 379
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF724128B4",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "common/arch/arm64/kernel/entry.S",
+                        "line": 657
+                    }
+                ]
+            },
+            {
+                "core": 6,
+                "name": "main",
+                "pid": 895,
+                "priority": 100,
+                "interrupt": "disabled",
+                "state": "online",
+                "backtrace": [
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "queued_spin_lock_slowpath",
+                        "parameters": "lock=0xFFFFFF81D8F1CE40",
+                        "offset": 444,
+                        "file": "kernel/locking/qspinlock.c",
+                        "line": 474
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "queued_spin_lock",
+                        "parameters": "N/A",
+                        "offset": 108,
+                        "file": "include/asm-generic/qspinlock.h",
+                        "line": 85
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "do_raw_spin_lock_flags",
+                        "parameters": "N/A",
+                        "offset": 108,
+                        "file": "include/linux/spinlock.h",
+                        "line": 195
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__raw_spin_lock_irqsave",
+                        "parameters": "N/A",
+                        "offset": 156,
+                        "file": "include/linux/spinlock_api_smp.h",
+                        "line": 119
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "_raw_spin_lock_irqsave",
+                        "parameters": "N/A",
+                        "offset": 176,
+                        "file": "kernel/locking/spinlock.c",
+                        "line": 159
+                    },
+                    {
+                        "elf_name": "scheduler.ko",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF6FEBCFE4",
+                        "parameters": "Para4=0xFFFFFFC0158138C4, Para5=0xFFFFFFC0158138C0",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__traceiter_android_rvh_sched_newidle_balance",
+                        "parameters": "N/A",
+                        "offset": 24,
+                        "file": "include/trace/hooks/sched.h",
+                        "line": 101
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "trace_android_rvh_sched_newidle_balance",
+                        "parameters": "pulled_task=0xFFFFFFC0158138C4, done=0xFFFFFFC0158138C0",
+                        "offset": 60,
+                        "file": "include/trace/hooks/sched.h",
+                        "line": 101
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "newidle_balance",
+                        "parameters": "N/A",
+                        "offset": 136,
+                        "file": "kernel/sched/fair.c",
+                        "line": 10953
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "pick_next_task_fair",
+                        "parameters": "rf=0xFFFFFFC0158139B8",
+                        "offset": 88,
+                        "file": "kernel/sched/fair.c",
+                        "line": 7476
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "pick_next_task",
+                        "parameters": "rf=0xFFFFFFC0158139B8",
+                        "offset": 48,
+                        "file": "kernel/sched/core.c",
+                        "line": 4611
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__schedule",
+                        "parameters": "preempt=false",
+                        "offset": 776,
+                        "file": "kernel/sched/core.c",
+                        "line": 4762
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "schedule",
+                        "parameters": "N/A",
+                        "offset": 124,
+                        "file": "kernel/sched/core.c",
+                        "line": 4873
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "io_schedule",
+                        "parameters": "N/A",
+                        "offset": 4,
+                        "file": "kernel/sched/core.c",
+                        "line": 6578
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "wait_on_page_bit_common",
+                        "parameters": "bit_nr=0, state=258, behavior=EXCLUSIVE",
+                        "offset": 916,
+                        "file": "mm/filemap.c",
+                        "line": 1282
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__lock_page_killable",
+                        "parameters": "N/A",
+                        "offset": 12,
+                        "file": "mm/filemap.c",
+                        "line": 1557
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "lock_page_maybe_drop_mmap",
+                        "parameters": "fpin=0xFFFFFFC015813B60",
+                        "offset": 272,
+                        "file": "mm/filemap.c",
+                        "line": 2603
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "filemap_fault",
+                        "parameters": "N/A",
+                        "offset": 1424,
+                        "file": "mm/filemap.c",
+                        "line": 2825
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__do_fault",
+                        "parameters": "N/A",
+                        "offset": 192,
+                        "file": "mm/memory.c",
+                        "line": 4066
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "do_read_fault",
+                        "parameters": "N/A",
+                        "offset": 388,
+                        "file": "mm/memory.c",
+                        "line": 4403
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "do_fault",
+                        "parameters": "N/A",
+                        "offset": 28,
+                        "file": "mm/memory.c",
+                        "line": 4531
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "handle_pte_fault",
+                        "parameters": "vmf=0xFFFFFFC015813D20",
+                        "offset": 316,
+                        "file": "mm/memory.c",
+                        "line": 4795
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__handle_mm_fault",
+                        "parameters": "N/A",
+                        "offset": 436,
+                        "file": "mm/memory.c",
+                        "line": 4950
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "handle_mm_fault",
+                        "parameters": "N/A",
+                        "offset": 788,
+                        "file": "mm/memory.c",
+                        "line": 5335
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__do_page_fault",
+                        "parameters": "N/A",
+                        "offset": 48,
+                        "file": "arch/arm64/mm/fault.c",
+                        "line": 515
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "do_page_fault",
+                        "parameters": "N/A",
+                        "offset": 1240,
+                        "file": "arch/arm64/mm/fault.c",
+                        "line": 615
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "do_translation_fault",
+                        "parameters": "N/A",
+                        "offset": 68,
+                        "file": "arch/arm64/mm/fault.c",
+                        "line": 705
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "do_mem_abort",
+                        "parameters": "N/A",
+                        "offset": 104,
+                        "file": "arch/arm64/mm/fault.c",
+                        "line": 848
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "el0_da",
+                        "parameters": "N/A",
+                        "offset": 32,
+                        "file": "arch/arm64/kernel/entry-common.c",
+                        "line": 256
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "el0_sync_handler",
+                        "parameters": "N/A",
+                        "offset": 196,
+                        "file": "arch/arm64/kernel/entry-common.c",
+                        "line": 376
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF724128B4",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "common/arch/arm64/kernel/entry.S",
+                        "line": 657
+                    }
+                ]
+            },
+            {
+                "core": 7,
+                "name": "init",
+                "pid": 330,
+                "priority": 120,
+                "interrupt": "disabled",
+                "state": "online",
+                "backtrace": [
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "queued_spin_lock_slowpath",
+                        "parameters": "lock=0xFFFFFF81D8F1CE40",
+                        "offset": 136,
+                        "file": "kernel/locking/qspinlock.c",
+                        "line": 382
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "queued_spin_lock",
+                        "parameters": "lock=0xFFFFFF81D8F1CE40",
+                        "offset": 820,
+                        "file": "include/asm-generic/qspinlock.h",
+                        "line": 85
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "do_raw_spin_lock",
+                        "parameters": "lock=0xFFFFFF81D8F1CE40",
+                        "offset": 820,
+                        "file": "include/linux/spinlock.h",
+                        "line": 183
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__raw_spin_lock",
+                        "parameters": "lock=0xFFFFFF81D8F1CE40",
+                        "offset": 840,
+                        "file": "include/linux/spinlock_api_smp.h",
+                        "line": 143
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "_raw_spin_lock",
+                        "parameters": "lock=0xFFFFFF81D8F1CE40",
+                        "offset": 840,
+                        "file": "kernel/locking/spinlock.c",
+                        "line": 151
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "rq_lock",
+                        "parameters": "rq=0xFFFFFF81D8F1CE40",
+                        "offset": 840,
+                        "file": "kernel/sched/sched.h",
+                        "line": 1345
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "scheduler_tick",
+                        "parameters": "N/A",
+                        "offset": 936,
+                        "file": "kernel/sched/core.c",
+                        "line": 4257
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "update_process_times",
+                        "parameters": "N/A",
+                        "offset": 224,
+                        "file": "kernel/time/timer.c",
+                        "line": 1753
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "tick_sched_handle",
+                        "parameters": "N/A",
+                        "offset": 48,
+                        "file": "kernel/time/tick-sched.c",
+                        "line": 225
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "tick_sched_timer",
+                        "parameters": "N/A",
+                        "offset": 308,
+                        "file": "kernel/time/tick-sched.c",
+                        "line": 1389
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__run_hrtimer",
+                        "parameters": "now=0xFFFFFFC00803BEB0",
+                        "offset": 304,
+                        "file": "kernel/time/hrtimer.c",
+                        "line": 1585
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__hrtimer_run_queues",
+                        "parameters": "active_mask=15",
+                        "offset": 136,
+                        "file": "kernel/time/hrtimer.c",
+                        "line": 1649
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "hrtimer_interrupt",
+                        "parameters": "N/A",
+                        "offset": 464,
+                        "file": "kernel/time/hrtimer.c",
+                        "line": 1711
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "timer_handler",
+                        "parameters": "access=1",
+                        "offset": 88,
+                        "file": "drivers/clocksource/arm_arch_timer.c",
+                        "line": 647
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "arch_timer_handler_virt",
+                        "parameters": "N/A",
+                        "offset": 88,
+                        "file": "drivers/clocksource/arm_arch_timer.c",
+                        "line": 658
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "handle_percpu_devid_irq",
+                        "parameters": "N/A",
+                        "offset": 188,
+                        "file": "kernel/irq/chip.c",
+                        "line": 948
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "generic_handle_irq_desc",
+                        "parameters": "N/A",
+                        "offset": 32,
+                        "file": "include/linux/irqdesc.h",
+                        "line": 152
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__handle_domain_irq",
+                        "parameters": "lookup=true",
+                        "offset": 308,
+                        "file": "kernel/irq/irqdesc.c",
+                        "line": 702
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "handle_domain_irq",
+                        "parameters": "N/A",
+                        "offset": 8,
+                        "file": "include/linux/irqdesc.h",
+                        "line": 170
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "gic_handle_irq",
+                        "parameters": "N/A",
+                        "offset": 104,
+                        "file": "drivers/irqchip/irq-gic-v3.c",
+                        "line": 756
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "0xFFFFFFDF72412620",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "common/arch/arm64/kernel/entry.S",
+                        "line": 657
+                    }
+                ]
+            }
+        ],
+        "page_owner": null,
+        "slub_track": null,
+        "log": {
+            "list": [
+                "[    4.743340] [T1600001] WARNING: CPU: 6 PID: 1 at drivers/regulator/core.c:2856 _regulator_disable+0x74/0x48c",
+                "[    4.849636] [T1600001] Call trace:",
+                "[    4.875325] [T1600001] WARNING: CPU: 6 PID: 1 at fs/proc/generic.c:382 proc_register+0x1bc/0x320",
+                "[    4.963990] [T1600001] Call trace:",
+                "[    5.622877] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4",
+                "[    5.762258] [T1700001] Call trace:",
+                "[    5.778345] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4",
+                "[    5.880290] [T1700001] Call trace:",
+                "[    5.895720] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4",
+                "[    5.997636] [T1700001] Call trace:",
+                "[    6.012752] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4",
+                "[    6.114673] [T1700001] Call trace:",
+                "[    6.130112] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4",
+                "[    6.232021] [T1700001] Call trace:",
+                "[    6.247878] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4",
+                "[    6.349829] [T1700001] Call trace:",
+                "[    6.365266] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4",
+                "[    6.467221] [T1700001] Call trace:",
+                "[    6.483049] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4",
+                "[    6.584054] [T1700001] Call trace:",
+                "[    6.601495] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4",
+                "[    6.703400] [T1700001] Call trace:",
+                "[    6.721042] [T1700001] WARNING: CPU: 7 PID: 1 at kernel/power/qos.c:299 cpu_latency_qos_update_request+0x50/0x1c4",
+                "[    6.823000] [T1700001] Call trace:",
+                "[    8.303972] [T1700001] e2fsck: WARNING: linker: Warning: failed to find generated linker configuration from \"/linkerconfig/ld.config.txt\"",
+                "[   13.264482] [T1600408] WARNING: CPU: 6 PID: 408 at fs/proc/generic.c:382 proc_register+0x1bc/0x320",
+                "[   13.484928] [T1600408] Call trace:",
+                "[   13.879731] [T1600408] Call trace:",
+                "[   14.958214] [T1600891] WARNING: Unprivileged eBPF is enabled, data leaks possible via Spectre v2 BHB attacks!",
+                "[   18.405137] [T1700267] BUG: scheduling while atomic: kworker/u16:3/267/0x00000002",
+                "[   18.441286] [T1700267] Call trace:",
+                "[   18.459691] [T1700267] BUG: workqueue leaked lock or atomic: kworker/u16:3/0xffffffff/267",
+                "[   18.464448] [T1700267] Call trace:",
+                "[   18.465839] [T1700267] BUG: workqueue leaked lock or atomic: kworker/u16:3/0xffffffff/267",
+                "[   18.468880] [T1700267] Call trace:",
+                "[   18.471529] [T1700267] BUG: scheduling while atomic: kworker/u16:3/267/0x00000000",
+                "[   18.537725] [T1200267] Call trace:"
+            ],
+            "type": "kernel"
+        },
+        "needed_symbols": [
+            "scheduler.ko",
+            "authon.ko",
+            "pinctrl_mtk_v2.ko"
+        ]
+    }
+}

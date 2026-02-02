@@ -1,0 +1,88 @@
+
+*************************** lastpc ***************************
+DFD triggered
+Please refer to dfd post-processing result for lastpc
+
+plat_sram_flag1 = 0x1 ([0]:dfd_valid=1)
+plat_sram_flag2 = 0xfd000000 (base address)
+
+[LAST PC] CORE_0 PC = 0x000000004820221c, FP = 0x0000000048230d00, SP = 0x0000000000000000
+[LAST PC] CORE_1 PC = 0x000000004820223c, FP = 0x0000000048231500, SP = 0x0000000000000000
+[LAST PC] CORE_2 PC = 0x0000000048214e60, FP = 0x0000000048231d10, SP = 0x0000000000000000
+[LAST PC] CORE_3 PC = 0x000000004820221c, FP = 0x0000000048232500, SP = 0x0000000000000000
+[LAST PC] CORE_4 PC = 0x000000004820221c, FP = 0x0000000048232d00, SP = 0x0000000000000000
+[LAST PC] CORE_5 PC = 0x0000000048202224, FP = 0x0000000048233500, SP = 0x0000000000000000
+[LAST PC] CORE_6 PC = 0x6000000048203678, FP = 0x0000000000000000, SP = 0x0000000000000000
+[LAST PC] CORE_7 PC = 0x6000000048203678, FP = 0x0000000000000000, SP = 0x0000000000000000
+
+*************************** retrun stack ***************************
+DFD triggered
+
+[CORE_0]
+Top pointer : 0x3
+return stack0 = [<0x000000004820a570>]
+return stack1 = [<0x000000004820a4bc>]
+return stack2 = [<0x00000000482021fc>]
+return stack3 = [<0xffffffdf6f1d5e68>]
+return stack4 = [<0xffffffdf6f1d0018>]
+return stack5 = [<0xffffffdf72eb2bf4>]
+
+[CORE_1]
+Top pointer : 0x7
+return stack0 = [<0xffffffdf6feb87c4>]
+return stack1 = [<0xffffffdf6febe27c>]
+return stack2 = [<0xffffffdf73e0f778>]
+return stack3 = [<0x000000004821fd58>]
+return stack4 = [<0x000000004820a570>]
+return stack5 = [<0x000000004820a4bc>]
+
+[CORE_2]
+Top pointer : 0x2
+return stack0 = [<0x000000004821c348>]
+return stack1 = [<0x0000000048202110>]
+return stack2 = [<0x000000004821e904>]
+return stack3 = [<0x00000000482140f4>]
+return stack4 = [<0x0000000048205f28>]
+return stack5 = [<0x0000000048205f28>]
+
+[CORE_3]
+Top pointer : 0x3
+return stack0 = [<0x000000004820a570>]
+return stack1 = [<0x000000004820a4bc>]
+return stack2 = [<0x00000000482021f0>]
+return stack3 = [<0xffffffdf725a3210>]
+return stack4 = [<0xffffffdf6feb881c>]
+return stack5 = [<0xffffffdf6feb86b4>]
+
+[CORE_4]
+Top pointer : 0x5
+return stack0 = [<0xffffffdf73e0f598>]
+return stack1 = [<0x000000004821fd58>]
+return stack2 = [<0x000000004820a570>]
+return stack3 = [<0x000000004820a4bc>]
+return stack4 = [<0x00000000482021f0>]
+return stack5 = [<0xffffffdf725b8e88>]
+
+[CORE_5]
+Top pointer : 0x3
+return stack0 = [<0x000000004820a570>]
+return stack1 = [<0x000000004820a4bc>]
+return stack2 = [<0x00000000482021fc>]
+return stack3 = [<0xffffffdf725b8e88>]
+return stack4 = [<0xffffffdf725b3490>]
+return stack5 = [<0xffffffdf6febcfe8>]
+
+[CORE_6]
+Top pointer : 0x0
+return stack0 = [<0x0000000000000000>]
+return stack1 = [<0x0000000000000000>]
+
+[CORE_7]
+Top pointer : 0x0
+return stack0 = [<0x0000000000000000>]
+return stack1 = [<0x0000000000000000>]
+
+
+*********************** mt6789 lastbus ***********************
+
+#lastbus timeout = False

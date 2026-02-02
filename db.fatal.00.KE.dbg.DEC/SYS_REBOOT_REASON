@@ -1,0 +1,336 @@
+WDT status: 2 fiq step: 71  exception type: 2
+kick=0x44000000,check=0x420000ff
+Kernel Offset: 0x1f6a400000
+&oops_in_progress: 0xffffffdf74db66b8
+wdk_ktime=3136461929
+wdk_systimer_cnt=134393883
+mcdi_wfi: 0x0
+mcdi_r15: 0x0
+SPM Suspend debug = 0x0
+deepidle: 0x0
+sodi3: 0x0
+sodi: 0x0
+mcsodi: 0x0
+spm_suspend: 0x0
+spm_common_scenario: 0x0
+vcore_dvfs_opp: 0x0
+vcore_dvfs_status: 0x0
+clk_data: 0x0
+clk_data: 0x0
+clk_data: 0x0
+clk_data: 0x0
+clk_data: 0x0
+clk_data: 0x0
+clk_data: 0x0
+clk_data: 0x0
+fiq_cache_step: 0
+ppm_cluster_limit: 0x00000000
+ppm_cluster_limit: 0x00000000
+ppm_cluster_limit: 0x00000000
+ppm_cluster_limit: 0x00000000
+ppm_cluster_limit: 0x00000000
+ppm_cluster_limit: 0x00000000
+ppm_cluster_limit: 0x00000000
+ppm_cluster_limit: 0x00000000
+ppm_step: 0x0
+ppm_cur_state: 0x0
+ppm_min_pwr_bgt: 0
+ppm_policy_mask: 0x0
+ppm_waiting_for_pbm: 0x0
+cpu_dvfs_vproc_big: 0x0
+cpu_dvfs_vproc_little: 0x0
+cpu_dvfs_oppidx: little = 0x0
+cpu_dvfs_oppidx: big = 0x0
+cpu_dvfs_oppidx: cci = 0x0
+cpu_dvfs_status: 0x0
+cpu_dvfs_step: 0x0
+cpu_dvfs_pbm_step: 0x0
+cpu_dvfs_cb: 0x0
+cpufreq_cb: 0x0
+gpu_dvfs_vgpu: 0x4
+gpu_dvfs_oppidx: 0x0
+gpu_dvfs_status: 0x5
+gpu_dvfs_power_count: 1
+drcc_0 = 0x0
+drcc_1 = 0x0
+drcc_2 = 0x0
+drcc_3 = 0x0
+DRCC dbg info result: 0x0
+DRCC dbg info offset: 0x0
+DRCC dbg info timestamp: 0x0
+EEM devinfo0 = 0x0
+EEM devinfo1 = 0x0
+EEM devinfo2 = 0x0
+EEM devinfo3 = 0x0
+EEM devinfo4 = 0x0
+EEM devinfo5 = 0x0
+EEM devinfo6 = 0x0
+EEM devinfo7 = 0x0
+M_HW_RES0 = 0x0
+M_HW_RES1 = 0x0
+M_HW_RES2 = 0x0
+M_HW_RES3 = 0x0
+M_HW_RES4 = 0x0
+M_HW_RES5 = 0x0
+M_HW_RES6 = 0x0
+M_HW_RES7 = 0x0
+M_HW_RES8 = 0x0
+M_HW_RES9 = 0x0
+M_HW_RESA = 0x0
+M_HW_RESB = 0x0
+ptp_bank_[0]_vboot = 0x0
+ptp_bank_[1]_vboot = 0x0
+ptp_bank_[2]_vboot = 0x0
+ptp_bank_[3]_vboot = 0x0
+ptp_bank_[4]_vboot = 0x0
+ptp_bank_[5]_vboot = 0x0
+ptp_bank_[6]_vboot = 0x0
+ptp_bank_[7]_vboot = 0x0
+ptp_cpu_big_volt[0] = 0
+ptp_cpu_big_volt[1] = 0
+ptp_cpu_big_volt[2] = 0
+ptp_cpu_big_volt[3] = 0
+ptp_cpu_big_volt[4] = 0
+ptp_cpu_big_volt[5] = 0
+ptp_cpu_big_volt[6] = 0
+ptp_cpu_big_volt[7] = 0
+ptp_cpu_big_volt_1[0] = 0
+ptp_cpu_big_volt_1[1] = 0
+ptp_cpu_big_volt_1[2] = 0
+ptp_cpu_big_volt_1[3] = 0
+ptp_cpu_big_volt_1[4] = 0
+ptp_cpu_big_volt_1[5] = 0
+ptp_cpu_big_volt_1[6] = 0
+ptp_cpu_big_volt_1[7] = 0
+ptp_cpu_big_volt_2[0] = 0
+ptp_cpu_big_volt_2[1] = 0
+ptp_cpu_big_volt_2[2] = 0
+ptp_cpu_big_volt_2[3] = 0
+ptp_cpu_big_volt_2[4] = 0
+ptp_cpu_big_volt_2[5] = 0
+ptp_cpu_big_volt_2[6] = 0
+ptp_cpu_big_volt_2[7] = 0
+ptp_cpu_big_volt_3[0] = 0
+ptp_cpu_big_volt_3[1] = 0
+ptp_cpu_big_volt_3[2] = 0
+ptp_cpu_big_volt_3[3] = 0
+ptp_cpu_big_volt_3[4] = 0
+ptp_cpu_big_volt_3[5] = 0
+ptp_cpu_big_volt_3[6] = 0
+ptp_cpu_big_volt_3[7] = 0
+ptp_cpu_2_little_volt[0] = 0
+ptp_cpu_2_little_volt[1] = 0
+ptp_cpu_2_little_volt[2] = 0
+ptp_cpu_2_little_volt[3] = 0
+ptp_cpu_2_little_volt[4] = 0
+ptp_cpu_2_little_volt[5] = 0
+ptp_cpu_2_little_volt[6] = 0
+ptp_cpu_2_little_volt[7] = 0
+ptp_cpu_2_little_volt_1[0] = 0
+ptp_cpu_2_little_volt_1[1] = 0
+ptp_cpu_2_little_volt_1[2] = 0
+ptp_cpu_2_little_volt_1[3] = 0
+ptp_cpu_2_little_volt_1[4] = 0
+ptp_cpu_2_little_volt_1[5] = 0
+ptp_cpu_2_little_volt_1[6] = 0
+ptp_cpu_2_little_volt_1[7] = 0
+ptp_cpu_2_little_volt_2[0] = 0
+ptp_cpu_2_little_volt_2[1] = 0
+ptp_cpu_2_little_volt_2[2] = 0
+ptp_cpu_2_little_volt_2[3] = 0
+ptp_cpu_2_little_volt_2[4] = 0
+ptp_cpu_2_little_volt_2[5] = 0
+ptp_cpu_2_little_volt_2[6] = 0
+ptp_cpu_2_little_volt_2[7] = 0
+ptp_cpu_2_little_volt_3[0] = 0
+ptp_cpu_2_little_volt_3[1] = 0
+ptp_cpu_2_little_volt_3[2] = 0
+ptp_cpu_2_little_volt_3[3] = 0
+ptp_cpu_2_little_volt_3[4] = 0
+ptp_cpu_2_little_volt_3[5] = 0
+ptp_cpu_2_little_volt_3[6] = 0
+ptp_cpu_2_little_volt_3[7] = 0
+ptp_cpu_little_volt[0] = 0
+ptp_cpu_little_volt[1] = 0
+ptp_cpu_little_volt[2] = 0
+ptp_cpu_little_volt[3] = 0
+ptp_cpu_little_volt[4] = 0
+ptp_cpu_little_volt[5] = 0
+ptp_cpu_little_volt[6] = 0
+ptp_cpu_little_volt[7] = 0
+ptp_cpu_little_volt_1[0] = 0
+ptp_cpu_little_volt_1[1] = 0
+ptp_cpu_little_volt_1[2] = 0
+ptp_cpu_little_volt_1[3] = 0
+ptp_cpu_little_volt_1[4] = 0
+ptp_cpu_little_volt_1[5] = 0
+ptp_cpu_little_volt_1[6] = 0
+ptp_cpu_little_volt_1[7] = 0
+ptp_cpu_little_volt_2[0] = 0
+ptp_cpu_little_volt_2[1] = 0
+ptp_cpu_little_volt_2[2] = 0
+ptp_cpu_little_volt_2[3] = 0
+ptp_cpu_little_volt_2[4] = 0
+ptp_cpu_little_volt_2[5] = 0
+ptp_cpu_little_volt_2[6] = 0
+ptp_cpu_little_volt_2[7] = 0
+ptp_cpu_little_volt_3[0] = 0
+ptp_cpu_little_volt_3[1] = 0
+ptp_cpu_little_volt_3[2] = 0
+ptp_cpu_little_volt_3[3] = 0
+ptp_cpu_little_volt_3[4] = 0
+ptp_cpu_little_volt_3[5] = 0
+ptp_cpu_little_volt_3[6] = 0
+ptp_cpu_little_volt_3[7] = 0
+ptp_cpu_cci_volt[0] = 0
+ptp_cpu_cci_volt[1] = 0
+ptp_cpu_cci_volt[2] = 0
+ptp_cpu_cci_volt[3] = 0
+ptp_cpu_cci_volt[4] = 0
+ptp_cpu_cci_volt[5] = 0
+ptp_cpu_cci_volt[6] = 0
+ptp_cpu_cci_volt[7] = 0
+ptp_cpu_cci_volt_1[0] = 0
+ptp_cpu_cci_volt_1[1] = 0
+ptp_cpu_cci_volt_1[2] = 0
+ptp_cpu_cci_volt_1[3] = 0
+ptp_cpu_cci_volt_1[4] = 0
+ptp_cpu_cci_volt_1[5] = 0
+ptp_cpu_cci_volt_1[6] = 0
+ptp_cpu_cci_volt_1[7] = 0
+ptp_cpu_cci_volt_2[0] = 0
+ptp_cpu_cci_volt_2[1] = 0
+ptp_cpu_cci_volt_2[2] = 0
+ptp_cpu_cci_volt_2[3] = 0
+ptp_cpu_cci_volt_2[4] = 0
+ptp_cpu_cci_volt_2[5] = 0
+ptp_cpu_cci_volt_2[6] = 0
+ptp_cpu_cci_volt_2[7] = 0
+ptp_cpu_cci_volt_3[0] = 0
+ptp_cpu_cci_volt_3[1] = 0
+ptp_cpu_cci_volt_3[2] = 0
+ptp_cpu_cci_volt_3[3] = 0
+ptp_cpu_cci_volt_3[4] = 0
+ptp_cpu_cci_volt_3[5] = 0
+ptp_cpu_cci_volt_3[6] = 0
+ptp_cpu_cci_volt_3[7] = 0
+ptp_gpu_volt[0] = 0
+ptp_gpu_volt[1] = 0
+ptp_gpu_volt[2] = 0
+ptp_gpu_volt[3] = 0
+ptp_gpu_volt[4] = 0
+ptp_gpu_volt[5] = 0
+ptp_gpu_volt[6] = 0
+ptp_gpu_volt[7] = 0
+ptp_gpu_volt_2[0] = 0
+ptp_gpu_volt_2[1] = 0
+ptp_gpu_volt_2[2] = 0
+ptp_gpu_volt_2[3] = 0
+ptp_gpu_volt_2[4] = 0
+ptp_gpu_volt_2[5] = 0
+ptp_gpu_volt_2[6] = 0
+ptp_gpu_volt_2[7] = 0
+ptp_gpu_volt_3[0] = 0
+ptp_gpu_volt_3[1] = 0
+ptp_gpu_volt_3[2] = 0
+ptp_gpu_volt_3[3] = 0
+ptp_gpu_volt_3[4] = 0
+ptp_gpu_volt_3[5] = 0
+ptp_gpu_volt_3[6] = 0
+ptp_gpu_volt_3[7] = 0
+ptp_temp: big = 0
+ptp_temp: GPU = 0
+ptp_temp: little = 0
+ptp_status: 0x0
+eem_pi_offset : 0x0
+etc_status : 0x0
+etc_mode : 0x0
+thermal_temp1 = 0
+thermal_temp2 = 0
+thermal_temp3 = 0
+thermal_temp4 = 0
+thermal_temp5 = 0
+thermal_temp6 = 0
+thermal_temp7 = 0
+thermal_temp8 = 0
+thermal_temp9 = 0
+thermal_temp10 = 0
+thermal_status: 0
+thermal_ATM_status: 0
+thermal_ktime: 0
+idvfs_ctrl_reg = 0x0
+idvfs_Endis = Disable
+idvfs_SWP_Endis = Disable
+idvfs_OCP_Endis = Disable
+idvfs_OTP_Endis = Disable
+idvfs_enable_cnt = 0
+idvfs_swreq_cnt = 0
+idvfs_curr_volt = 300mv, 0x5e = 0x0
+idvfs_sram_ldo = 0mv
+idvfs_swavg_curr_pct_x100 = 0, 0MHz
+idvfs_swreq_curr_pct_x100 = 0, 0MHz
+idvfs_swreq_next_pct_x100 = 0, 0MHz
+idvfs state = 0: disable finish
+ocp_target_limit[0]: 0
+ocp_target_limit[1]: 0
+ocp_target_limit[2]: 0
+ocp_target_limit[3]: 0
+ocp_enable = 0x0
+scp_pc: 0x0
+scp_lr: 0x0
+hang detect time out: 0x0
+last async function: 0x0
+last sync function: 0x0
+GZ IRQ: 0x0
+last init function: 0x0
+pmic & external buck: 0xff
+CPU HPS footprint: 0, 0x0, 0, 0
+CPU notifier status: 0, 0, 0x0, 0
+CPU Hotplug: caller CPU0, callee CPU0
+CPU_UP_PREPARE: 0
+CPU_STARTING: 0
+CPU_ONLINE: 0
+CPU_DOWN_PREPARE: 0
+CPU_DYING: 0
+CPU_DEAD: 0
+CPU_POST_DEAD: 0
+CPU 0
+  irq: enter(0, 0) quit(0, 0)
+  hotplug: 0
+  mtk_cpuidle_footprint: 0x0
+  mcdi footprint: 0x0
+CPU 1
+  irq: enter(0, 0) quit(0, 0)
+  hotplug: 0
+  mtk_cpuidle_footprint: 0x0
+  mcdi footprint: 0x0
+CPU 2
+  irq: enter(0, 0) quit(0, 0)
+  hotplug: 0
+  mtk_cpuidle_footprint: 0x0
+  mcdi footprint: 0x0
+CPU 3
+  irq: enter(0, 0) quit(0, 0)
+  hotplug: 0
+  mtk_cpuidle_footprint: 0x0
+  mcdi footprint: 0x0
+CPU 4
+  irq: enter(0, 0) quit(0, 0)
+  hotplug: 0
+  mtk_cpuidle_footprint: 0x0
+  mcdi footprint: 0x0
+CPU 5
+  irq: enter(0, 0) quit(0, 0)
+  hotplug: 0
+  mtk_cpuidle_footprint: 0x0
+  mcdi footprint: 0x0
+CPU 6
+  irq: enter(0, 0) quit(0, 0)
+  hotplug: 0
+  mtk_cpuidle_footprint: 0x0
+  mcdi footprint: 0x0
+CPU 7
+  irq: enter(0, 0) quit(0, 0)
+  hotplug: 0
+  mtk_cpuidle_footprint: 0x0
+  mcdi footprint: 0x0

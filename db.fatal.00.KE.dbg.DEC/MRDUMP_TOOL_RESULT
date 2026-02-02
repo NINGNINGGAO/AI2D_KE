@@ -1,0 +1,42 @@
+I:mrdump_get_env: mrdump_output:internal-storage
+I:file_extract_core_command: datafs solution
+D:mrdump_get_mount_path: fullpath /data/vendor/dumpsys/mrdump_preallocated, dirname /data/vendor/dumpsys/mrdump_preallocated
+D:mrdump_get_mount_path: mount path found /data
+D:pafile_open_with_fd: mount_path /data fd 3
+D:pafile_fiemap_get: mapped extents 1
+D:pafile_fiemap_get: logical 0 phys 161800000 length 4096
+D:pafile_open_with_fd: ftype(f2f52010) blksize(4096) blkcount(2129920) lbaooo(1447936)
+I:Ramdump size is 0, no data to dump
+I:mrdump_get_env: mrdump_allocate_size:
+D:mrdump_file_allocate: file /data/vendor/dumpsys/mrdump_preallocated reset 1
+I:mrdump_is_supported: true
+I:mrdump_get_env: mrdump_output:internal-storage
+D:mrdump_get_mount_path: fullpath /data/vendor/dumpsys/mrdump_preallocated, dirname /data/vendor/dumpsys/mrdump_preallocated
+D:mrdump_get_mount_path: mount path found /data
+D:pafile_open_with_fd: mount_path /data fd 3
+D:pafile_fiemap_get: mapped extents 1
+D:pafile_fiemap_get: logical 0 phys 161800000 length 4096
+D:pafile_open_with_fd: ftype(f2f52010) blksize(4096) blkcount(2129920) lbaooo(1447936)
+I:mrdump_file_allocate: mandatory block marker rewrite
+I:mrdump_file_allocate: remove prealloc file and create a new one.
+D:pafile_new: file /data/vendor/dumpsys/mrdump_preallocated
+D:mrdump_get_mount_path: fullpath /data/vendor/dumpsys/mrdump_preallocated, dirname /data/vendor/dumpsys
+D:mrdump_get_mount_path: mount path found /data
+D:mrdump_get_partition_free_size: size of /data: 99931799552 bytes.
+I:pafile_new: Partition /data free space(95302MB), allocate size 8320MB
+D:pafile_fallocate: filename /data/vendor/dumpsys/mrdump_preallocated size 8724152320
+E:datafs_setup_attr: open allocfile failed(2), No such file or directory
+D:pafile_fallocate: Detect pre-allocate file stay at f2fs filesystem, pin it
+D:pafile_open_with_fd: mount_path /data fd 3
+D:pafile_fiemap_get: mapped extents 1
+D:pafile_fiemap_get: logical 0 phys 823200000 length 4096
+D:pafile_open_with_fd: ftype(f2f52010) blksize(4096) blkcount(2129920) lbaooo(8532480)
+D:fs_lba_maker start.
+D:pafile_fiemap_get: mapped extents 1
+D:pafile_fiemap_get: logical 0 phys 823200000 length 4096
+D:pafile_fiemap_get: mapped extents 1
+D:pafile_fiemap_get: logical 1000 phys 823201000 length 4096
+D:fs_lba_mark_header: info 8532480 addr 8532481
+D:fs_lba_maker end...
+I:mrdump_file_allocate: LBAOOO(8532480) ready
+Error: Fetching Coredump data failed

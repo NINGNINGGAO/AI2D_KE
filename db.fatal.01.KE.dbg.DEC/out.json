@@ -1,0 +1,558 @@
+{
+    "db_path": "D:\\jira\\x6886\\monkey\\X688615AEE-1007\\db.fatal.00.KE.dbg.DEC",
+    "basic_info": {
+        "exception_type": "KE",
+        "sub_type": "UNKNOWN",
+        "summary": [
+            "Peri Infra bus timeout, please check SYS_LAST_CPU_BUS/DFD",
+            "__queue_work() read data from illegal address(0x0000000000000102), please check code with crashed process's callstack"
+        ],
+        "exception_time": {
+            "kernel_time": "275722.480685s",
+            "android_time": "Mon Jun  9 12:05:26 CST 2025",
+            "exception_log_time": "Mon Jun  9 12:05:26 CST 2025"
+        },
+        "owner": {
+            "branch": "customer_version",
+            "project": "customer_version",
+            "owner_name": "customer_version",
+            "owner_id": "customer_version",
+            "owner_dept": "customer_version",
+            "owner_phone": "customer_version",
+            "layer": "customer_version",
+            "source": "customer_version",
+            "role": "customer_version",
+            "manager": "customer_version",
+            "owner_resigned": "customer_version",
+            "input": "kernel-5.10\\kernel\\workqueue.c"
+        },
+        "build_info": {
+            "raw_info": "alps-vf-mp-s0.mp1unknown:alps-vf-mp-s0.mp1unknown-V17.23_reallytek.s0mp1rc.k61v1.64.bsp_P8.V13.8:mt6789:S01,Infinix/X6886-OP/Infinix-X6886:15/AP3A.240905.015.A2/103033:user_root/relea",
+            "branch": "alps-vf-mp-s0.mp1unknown",
+            "version": "alps-vf-mp-s0.mp1unknown-V17.23_reallytek.s0mp1rc.k61v1.64.bsp_P8.V13.8",
+            "platform": "mt6789",
+            "project": "unknown",
+            "build_type": "unknown",
+            "mssi": "N/A",
+            "mgvi": "mgvi_64_nfc_armv82",
+            "mgk": "mgk_64_entry_level_k510",
+            "vf_sys_branch": "unknown",
+            "vf_sys_version": "alps-mp-v0.mp1-V13.8"
+        },
+        "symbol_path": "D:\\jira\\x6886\\monkey\\X688615AEE-1007\\db.fatal.00.KE.dbg.DEC\\symbols",
+        "reference": [],
+        "gat_version": "gat-win32-x86_64-4.2214.1.c",
+        "execute_time": "20250619-140401"
+    },
+    "detail_info": {
+        "type": "UNKNOWN",
+        "pc": [
+            "__queue_work",
+            "out/android12-5.10/common\\kernel\\workqueue.c:1437"
+        ],
+        "lr": [
+            "delayed_work_timer_fn",
+            "out/android12-5.10/common\\kernel\\workqueue.c:1643"
+        ],
+        "cfi_callee": [],
+        "process": "[kworker/3:1H, 26858][kthreadd, 2]",
+        "pre_bt": [],
+        "bt": [
+            [
+                "die_kernel_fault",
+                "out/android12-5.10/common\\arch/arm64/mm\\fault.c:300"
+            ],
+            [
+                "__do_kernel_fault",
+                "out/android12-5.10/common\\arch/arm64/mm\\fault.c:408"
+            ],
+            [
+                "do_page_fault",
+                "out/android12-5.10/common\\arch/arm64/mm\\fault.c:694"
+            ],
+            [
+                "do_translation_fault",
+                "out/android12-5.10/common\\arch/arm64/mm\\fault.c:705"
+            ],
+            [
+                "do_mem_abort",
+                "out/android12-5.10/common\\arch/arm64/mm\\fault.c:848"
+            ],
+            [
+                "el1_abort",
+                "out/android12-5.10/common\\arch/arm64/kernel\\entry-common.c:122"
+            ],
+            [
+                "el1_sync_handler",
+                "out/android12-5.10/common\\arch/arm64/kernel\\entry-common.c:205"
+            ],
+            [
+                "el1_sync",
+                "out/android12-5.10/common\\common/arch/arm64/kernel\\entry.S:770"
+            ],
+            [
+                "__queue_work",
+                "out/android12-5.10/common\\kernel\\workqueue.c:1437"
+            ],
+            [
+                "delayed_work_timer_fn",
+                "out/android12-5.10/common\\kernel\\workqueue.c:1642"
+            ],
+            [
+                "call_timer_fn",
+                "out/android12-5.10/common\\kernel/time\\timer.c:1450"
+            ],
+            [
+                "expire_timers",
+                "out/android12-5.10/common\\kernel/time\\timer.c:1490"
+            ],
+            [
+                "__run_timers",
+                "out/android12-5.10/common\\kernel/time\\timer.c:1789"
+            ],
+            [
+                "run_timer_softirq",
+                "out/android12-5.10/common\\kernel/time\\timer.c:1802"
+            ],
+            [
+                "__do_softirq",
+                "out/android12-5.10/common\\kernel\\softirq.c:305"
+            ],
+            [
+                "__irq_exit_rcu",
+                "out/android12-5.10/common\\kernel\\softirq.c:432"
+            ],
+            [
+                "__handle_domain_irq",
+                "out/android12-5.10/common\\kernel/irq\\irqdesc.c:703"
+            ],
+            [
+                "gic_handle_irq.30586",
+                "out/android12-5.10/common\\drivers/irqchip\\irq-gic-v3.c:756"
+            ],
+            [
+                "el1_irq",
+                "out/android12-5.10/common\\common/arch/arm64/kernel\\entry.S:777"
+            ],
+            [
+                "finish_task_switch",
+                "out/android12-5.10/common\\kernel/sched\\core.c:3873"
+            ],
+            [
+                "__schedule",
+                "out/android12-5.10/common\\kernel/sched\\core.c:4795"
+            ],
+            [
+                "schedule",
+                "out/android12-5.10/common\\kernel/sched\\core.c:4873"
+            ],
+            [
+                "worker_thread",
+                "out/android12-5.10/common\\kernel\\workqueue.c:2466"
+            ],
+            [
+                "kthread",
+                "out/android12-5.10/common\\kernel\\kthread.c:313"
+            ],
+            [
+                "ret_from_fork",
+                "out/android12-5.10/common\\common/arch/arm64/kernel\\entry.S:1122"
+            ]
+        ],
+        "detail": [
+            "Peri Infra bus timeout, please check SYS_LAST_CPU_BUS/DFD",
+            "__queue_work() read data from illegal address(0x0000000000000102), please check code with crashed process's callstack"
+        ],
+        "reference": [],
+        "platform": "MT6789",
+        "HRID": "1A61050A,2BB6DD52",
+        "customer_version": "N/A",
+        "kernel_time": "275722.480685s",
+        "android_time": "Mon Jun  9 12:05:26 CST 2025",
+        "ro_diff": [],
+        "cpu_info": {
+            "online": " 0 1 2 [3] 4 5 6 7"
+        },
+        "eMCP": {
+            "DRAM_type": "LPDDR4",
+            "DRAM_vendor": "",
+            "DRAM_size": "8G",
+            "storage_type": "UFS",
+            "storage_version": "02.3",
+            "warm_reboot_count": 4
+        },
+        "low_power": {
+            "SPM_last_pc": "0x3a4"
+        },
+        "crashed_cpu": [
+            {
+                "core": 3,
+                "name": "kworker/3:1H",
+                "pid": 26858,
+                "priority": 100,
+                "interrupt": "disabled",
+                "state": "online",
+                "backtrace": [
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__queue_work",
+                        "parameters": "N/A",
+                        "offset": 40,
+                        "file": "kernel/workqueue.c",
+                        "line": 1437
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "delayed_work_timer_fn",
+                        "parameters": "N/A",
+                        "offset": 32,
+                        "file": "kernel/workqueue.c",
+                        "line": 1642
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "call_timer_fn",
+                        "parameters": "N/A",
+                        "offset": 84,
+                        "file": "kernel/time/timer.c",
+                        "line": 1450
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "expire_timers",
+                        "parameters": "N/A",
+                        "offset": 328,
+                        "file": "kernel/time/timer.c",
+                        "line": 1490
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__run_timers",
+                        "parameters": "N/A",
+                        "offset": 492,
+                        "file": "kernel/time/timer.c",
+                        "line": 1789
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "run_timer_softirq",
+                        "parameters": "N/A",
+                        "offset": 36,
+                        "file": "kernel/time/timer.c",
+                        "line": 1802
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__do_softirq",
+                        "parameters": "N/A",
+                        "offset": 356,
+                        "file": "kernel/softirq.c",
+                        "line": 305
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "do_softirq_own_stack",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "include/linux/interrupt.h",
+                        "line": 578
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "invoke_softirq",
+                        "parameters": "N/A",
+                        "offset": 52,
+                        "file": "kernel/softirq.c",
+                        "line": 402
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__irq_exit_rcu",
+                        "parameters": "N/A",
+                        "offset": 260,
+                        "file": "kernel/softirq.c",
+                        "line": 432
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "irq_exit",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "kernel/softirq.c",
+                        "line": 456
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__handle_domain_irq",
+                        "parameters": "lookup=true",
+                        "offset": 312,
+                        "file": "kernel/irq/irqdesc.c",
+                        "line": 703
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "handle_domain_irq",
+                        "parameters": "N/A",
+                        "offset": 8,
+                        "file": "include/linux/irqdesc.h",
+                        "line": 170
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "gic_handle_irq",
+                        "parameters": "N/A",
+                        "offset": 104,
+                        "file": "drivers/irqchip/irq-gic-v3.c",
+                        "line": 756
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 2,
+                        "function": "0xFFFFFFE91B212620",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "common/arch/arm64/kernel/entry.S",
+                        "line": 657
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__preempt_count_dec_and_test",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "arch/arm64/include/asm/preempt.h",
+                        "line": 61
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "__raw_spin_unlock_irq",
+                        "parameters": "N/A",
+                        "offset": 12,
+                        "file": "include/linux/spinlock_api_smp.h",
+                        "line": 169
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "_raw_spin_unlock_irq",
+                        "parameters": "N/A",
+                        "offset": 12,
+                        "file": "kernel/locking/spinlock.c",
+                        "line": 199
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "finish_lock_switch",
+                        "parameters": "N/A",
+                        "offset": 12,
+                        "file": "kernel/sched/core.c",
+                        "line": 3773
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "finish_task_switch",
+                        "parameters": "N/A",
+                        "offset": 144,
+                        "file": "kernel/sched/core.c",
+                        "line": 3873
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 4,
+                        "function": "context_switch",
+                        "parameters": "rf=0xFFFFFFC02B3CBD88",
+                        "offset": 408,
+                        "file": "kernel/sched/core.c",
+                        "line": 4038
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "__schedule",
+                        "parameters": "preempt=false",
+                        "offset": 1468,
+                        "file": "kernel/sched/core.c",
+                        "line": 4795
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "schedule",
+                        "parameters": "N/A",
+                        "offset": 124,
+                        "file": "kernel/sched/core.c",
+                        "line": 4873
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "worker_thread",
+                        "parameters": "N/A",
+                        "offset": 1368,
+                        "file": "kernel/workqueue.c",
+                        "line": 2466
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "kthread",
+                        "parameters": "N/A",
+                        "offset": 332,
+                        "file": "kernel/kthread.c",
+                        "line": 313
+                    },
+                    {
+                        "elf_name": "vmlinux",
+                        "flag": 0,
+                        "function": "0xFFFFFFE91B21591C",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "common/arch/arm64/kernel/entry.S",
+                        "line": 1122
+                    }
+                ],
+                "disassembly_code": [
+                    "line  addr               inst.          tips",
+                    "kernel/workqueue.c",
+                    "1437: FFFFFFE91B368DAC:  LDRB W8, [X1, #0x102] ; __queue_work() Para 2 maybe have problem",
+                    "",
+                    "kernel/workqueue.c",
+                    "1642: FFFFFFE91B36D178:  LDR X1, [X0, #0x38] ; delayed_work_timer_fn() Para 1 maybe have problem",
+                    "      FFFFFFE91B36D184:  BL __queue_work()",
+                    "",
+                    "arch/arm64/include/asm/preempt.h",
+                    "      FFFFFFE91B4656EC:  MOV X21, X0 ; call_timer_fn() Para 1 maybe have problem",
+                    "kernel/time/timer.c",
+                    "1450: FFFFFFE91B46570C:  MOV X0, X21",
+                    "      FFFFFFE91B465710:  BLR X20",
+                    "",
+                    "kernel/time/timer.c",
+                    "      FFFFFFE91B4652D8:  MOV X19, X1 ; expire_timers() Para 2 maybe have problem",
+                    "      FFFFFFE91B465300:  B FFFFFFE91B465318",
+                    "1481: FFFFFFE91B465318:  LDR X0, [X19]",
+                    "1488: FFFFFFE91B465348:  TBNZ W9, #21, FFFFFFE91B4653BC",
+                    "arch/arm64/include/asm/preempt.h",
+                    "61  : FFFFFFE91B4653BC:  ",
+                    "kernel/time/timer.c",
+                    "1490: FFFFFFE91B4653DC:  BL call_timer_fn()",
+                    "",
+                    "kernel/time/timer.c",
+                    "      FFFFFFE91B465020:  MOV X8, SP ;  R31:0xFFFFFFC00801BE90",
+                    "1773: FFFFFFE91B465028:  SUB X23, X8, #0x8",
+                    "      FFFFFFE91B465030:  B FFFFFFE91B465064",
+                    "1774: FFFFFFE91B465064:  ",
+                    "0   : FFFFFFE91B465078:  MOV W25, #0",
+                    "1517: FFFFFFE91B465100:  ADD W25, W25, #0x1",
+                    "1788: FFFFFFE91B465138:  MOV W8, W25",
+                    "      FFFFFFE91B465140:  LSL X26, X8, #0x3",
+                    "1789: FFFFFFE91B465150:  ADD X1, X23, X26",
+                    "      FFFFFFE91B465158:  BL expire_timers()",
+                    "current register values:",
+                    "X0: 0000000000000000,  X1: 0000000000000000,  X2: FFFFFF80D12F7A80,  X3: 0000000000000001",
+                    "X4: 0000000000000080,  X5: 0000000000000000,  X6: 0000000000000000,  X7: 0000000000000001",
+                    "X8: 0000000000000000,  X9: 0000000100000102,  X10: 00000001441AA743, X11: 00000001041AA744",
+                    "X12: FFFFFF81D8E8AEA8, X13: 0000000000000040, X14: FFFFFF81D8E8AEB0, X15: FFFFFFFFFFFFFFFF",
+                    "X16: 0000000000000000, X17: 00000001041AA744, X18: FFFFFFC00801D050, X19: 0000000000000102",
+                    "X20: FFFFFFE91CA36CE8, X21: FFFFFF80D12F7AB0, X22: FFFFFF80036C5C80, X23: 00000000000000E0",
+                    "X24: FFFFFF80036C5C80, X25: 0000000000000001, X26: FFFFFFE91D956008, X27: FFFFFFE91D989DD8",
+                    "X28: FFFFFFE91DB1F758, X29: FFFFFFC00801BD00, X30: FFFFFFE91B36D188, SP: FFFFFFC00801BCF0",
+                    "PC: FFFFFFE91B368DAC"
+                ]
+            }
+        ],
+        "other_cpus": [
+            {
+                "core": 0,
+                "state": "idle(WFI)",
+                "backtrace": []
+            },
+            {
+                "core": 1,
+                "state": "idle(WFI)",
+                "backtrace": []
+            },
+            {
+                "core": 2,
+                "state": "idle(WFI)",
+                "backtrace": []
+            },
+            {
+                "core": 4,
+                "state": "idle(WFI)",
+                "backtrace": []
+            },
+            {
+                "core": 5,
+                "state": "idle(WFI)",
+                "backtrace": []
+            },
+            {
+                "core": 6,
+                "name": "(null)",
+                "pid": 0,
+                "state": "EL0t",
+                "backtrace": [
+                    {
+                        "elf_name": "......",
+                        "flag": 0,
+                        "function": "0x000000604179B0D0",
+                        "parameters": "N/A",
+                        "offset": 0,
+                        "file": "N/A",
+                        "line": 0
+                    }
+                ]
+            },
+            {
+                "core": 7,
+                "state": "idle(WFI)",
+                "backtrace": []
+            }
+        ],
+        "total_threads": 6419,
+        "running_threads": 3,
+        "page_owner": {
+            "allocator": "buddy",
+            "total": "7.5GB",
+            "ion_used": "N/A",
+            "free": "135.1MB",
+            "lowmem_threshold": "100MB",
+            "debug_level": 1
+        },
+        "slub_track": {
+            "allocator": "slub",
+            "total": "674.0MB",
+            "current_used": "498.9MB",
+            "leak_threshold": "768MB",
+            "debug_level": 1,
+            "error_list": []
+        },
+        "log": {
+            "list": [
+                "[275623.979905] [T119358] WARNING: CPU: 1 PID: 19358 at drivers/regulator/core.c:2856 _regulator_disable+0x74/0x48c",
+                "[275623.982560] [T119358] Call trace:",
+                "[275623.985342] [T119358] WARNING: CPU: 1 PID: 19358 at drivers/regulator/core.c:2856 _regulator_disable+0x74/0x48c",
+                "[275623.989623] [T119358] Call trace:"
+            ],
+            "type": "kernel"
+        },
+        "needed_symbols": []
+    }
+}

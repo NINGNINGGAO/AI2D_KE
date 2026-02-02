@@ -1,0 +1,39 @@
+[20250619_140259_022043]db DEC path: D:\jira\x6886\monkey\X688615AEE-1007\db.fatal.00.KE.dbg.DEC
+[20250619_140259_022043][ke_controller]symbol path: D:\jira\x6886\monkey\X688615AEE-1007\db.fatal.00.KE.dbg.DEC\symbols
+[20250619_140259_058514][ke_dec]g_kernel_offset:2913200000
+[20250619_140339_181866][ke_controller]no dram_cpu_lp_issue
+[20250619_140401_917110][ke_parser]find ke type fail
+[20250619_140401_917110][ke_parser]pc:['__queue_work', 'out/android12-5.10/common\\kernel\\workqueue.c:1437']
+[20250619_140401_917110][ke_parser]lr:['delayed_work_timer_fn', 'out/android12-5.10/common\\kernel\\workqueue.c:1643']
+[20250619_140401_917110][ke_parser]ko_list:[]
+[20250619_140401_917110][ke_parser]process:[kworker/3:1H, 26858][kthreadd, 2]
+[20250619_140401_989664][ke_controller]Owner list for MOF:
+[20250619_140401_989664]  __queue_work - out/android12-5.10/common\kernel\workqueue.c:1437
+[20250619_140401_989664]  delayed_work_timer_fn - out/android12-5.10/common\kernel\workqueue.c:1643
+[20250619_140401_989664]  die_kernel_fault - out/android12-5.10/common\arch/arm64/mm\fault.c:300
+[20250619_140401_989664]  __do_kernel_fault - out/android12-5.10/common\arch/arm64/mm\fault.c:408
+[20250619_140401_989664]  do_page_fault - out/android12-5.10/common\arch/arm64/mm\fault.c:694
+[20250619_140401_989664]  do_translation_fault - out/android12-5.10/common\arch/arm64/mm\fault.c:705
+[20250619_140401_989664]  do_mem_abort - out/android12-5.10/common\arch/arm64/mm\fault.c:848
+[20250619_140401_989664]  el1_abort - out/android12-5.10/common\arch/arm64/kernel\entry-common.c:122
+[20250619_140401_989664]  el1_sync_handler - out/android12-5.10/common\arch/arm64/kernel\entry-common.c:205
+[20250619_140401_989664]  el1_sync - out/android12-5.10/common\common/arch/arm64/kernel\entry.S:770
+[20250619_140401_989664]  __queue_work - out/android12-5.10/common\kernel\workqueue.c:1437
+[20250619_140401_989664]  delayed_work_timer_fn - out/android12-5.10/common\kernel\workqueue.c:1642
+[20250619_140401_989664]  call_timer_fn - out/android12-5.10/common\kernel/time\timer.c:1450
+[20250619_140401_989664]  expire_timers - out/android12-5.10/common\kernel/time\timer.c:1490
+[20250619_140401_989664]  __run_timers - out/android12-5.10/common\kernel/time\timer.c:1789
+[20250619_140401_989664]  run_timer_softirq - out/android12-5.10/common\kernel/time\timer.c:1802
+[20250619_140401_989664]  __do_softirq - out/android12-5.10/common\kernel\softirq.c:305
+[20250619_140401_989664]  __irq_exit_rcu - out/android12-5.10/common\kernel\softirq.c:432
+[20250619_140401_989664]  __handle_domain_irq - out/android12-5.10/common\kernel/irq\irqdesc.c:703
+[20250619_140401_989664]  gic_handle_irq.30586 - out/android12-5.10/common\drivers/irqchip\irq-gic-v3.c:756
+[20250619_140401_989664]  el1_irq - out/android12-5.10/common\common/arch/arm64/kernel\entry.S:777
+[20250619_140401_989664]  finish_task_switch - out/android12-5.10/common\kernel/sched\core.c:3873
+[20250619_140401_989664]  __schedule - out/android12-5.10/common\kernel/sched\core.c:4795
+[20250619_140401_989664]  schedule - out/android12-5.10/common\kernel/sched\core.c:4873
+[20250619_140401_989664]  worker_thread - out/android12-5.10/common\kernel\workqueue.c:2466
+[20250619_140401_989664]  kthread - out/android12-5.10/common\kernel\kthread.c:313
+[20250619_140401_989664]  ret_from_fork - out/android12-5.10/common\common/arch/arm64/kernel\entry.S:1122
+[20250619_140401_989664][ke_controller]Search MOF file: out/android12-5.10/common\kernel\workqueue.c
+[20250619_140402_000932][ke_controller]write json done

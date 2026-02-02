@@ -1,0 +1,98 @@
+version: '3.8'
+
+services:
+  ke-analyzer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ke-analyzer:latest
+    container_name: ke-analyzer
+    ports:
+      - "8000:8000"
+    environment:
+      # Required: Jira Configuration
+      - JIRA_URL=${JIRA_URL:-https://your-jira.atlassian.net}
+      - JIRA_USERNAME=${JIRA_USERNAME}
+      - JIRA_API_TOKEN=${JIRA_API_TOKEN}
+      
+      # Required: AI Configuration
+      - QWEN_API_KEY=${QWEN_API_KEY}
+      
+      # Optional: Jira Settings
+      - JIRA_PROJECT_KEY=${JIRA_PROJECT_KEY:-}
+      - JIRA_WEBHOOK_SECRET=${JIRA_WEBHOOK_SECRET:-}
+      
+      # Optional: Memory MCP
+      - MEMORY_MCP_URL=${MEMORY_MCP_URL:-}
+      - MEMORY_MCP_API_KEY=${MEMORY_MCP_API_KEY:-}
+      - ENABLE_MEMORY_MCP=${ENABLE_MEMORY_MCP:-true}
+      
+      # Optional: Tool Configuration
+      - CRASH_COMMAND=${CRASH_COMMAND:-crash}
+      - GDB_COMMAND=${GDB_COMMAND:-gdb}
+      - ADDR2LINE_COMMAND=${ADDR2LINE_COMMAND:-addr2line}
+      
+      # Storage
+      - TEMP_DIR=${TEMP_DIR:-/tmp/ke-analyzer}
+      - MAX_ATTACHMENT_SIZE=${MAX_ATTACHMENT_SIZE:-524288000}
+      
+      # Optional: Kernel Sources
+      - KERNEL_SOURCE_PATH=${KERNEL_SOURCE_PATH:-}
+      - KERNEL_SYMBOL_PATH=${KERNEL_SYMBOL_PATH:-}
+      
+      # Analysis Settings
+      - MAX_ANALYSIS_TIME=${MAX_ANALYSIS_TIME:-600}
+      - ENABLE_KERNEL_RAG=${ENABLE_KERNEL_RAG:-true}
+      
+      # Application Settings
+      - DEBUG=${DEBUG:-false}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    volumes:
+      # Persistent storage for downloaded files and states
+      - ke-analyzer-data:/tmp/ke-analyzer
+      # Optional: Mount kernel sources
+      # - /path/to/kernel/sources:/kernel:ro
+      # Optional: Mount symbols
+      # - /path/to/symbols:/symbols:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - ke-analyzer-network
+
+  # Optional: Redis for caching (uncomment if needed)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: ke-analyzer-redis
+  #   restart: unless-stopped
+  #   volumes:
+  #     - redis-data:/data
+  #   networks:
+  #     - ke-analyzer-network
+
+  # Optional: Memory MCP service (uncomment if you have a Memory MCP service)
+  # memory-mcp:
+  #   image: memory-mcp:latest
+  #   container_name: memory-mcp
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - mcp-data:/data
+  #   networks:
+  #     - ke-analyzer-network
+
+volumes:
+  ke-analyzer-data:
+    driver: local
+  # redis-data:
+  #   driver: local
+  # mcp-data:
+  #   driver: local
+
+networks:
+  ke-analyzer-network:
+    driver: bridge

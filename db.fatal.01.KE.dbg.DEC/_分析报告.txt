@@ -1,0 +1,140 @@
+== 异常报告v2.2(仅供参考) ==
+报告解读: MediaTek On-Line> Quick Start> NE/KE分析报告解读> KE分析报告
+详细描述: PERI INFRA 总线超时, 请检查SYS_LAST_CPU_BUS/DFD
+详细描述: __queue_work()从错误的地址(0x0000000000000102)读数据，请结合崩溃进程调用栈检查相关代码
+平台    : MT6789 (1A61050A,2BB6DD52)
+版本    : alps-vf-mp-s0.mp1unknown-V17.23_reallytek.s0mp1rc.k61v1.64.bsp/??
+异常时间: 275722.480685秒, Mon Jun  9 12:05:26 CST 2025
+
+
+== 平台信息 ==
+-- CPU 0 1 2 [3] 4 5 6 7 --
+PTP ver: 0
+--  LPDDR4(8G)|UFS --
+Storage ver: 02.3
+vcore dvfs opp: [-140464669.886135]0(725mV, 4266MHz)
+已热重启: 4次
+-- Low Power --
+SPM last pc: 0x3a4
+
+
+== CPU信息 ==
+崩溃CPU信息:
+   CPU3: kworker/3:1H, pid: 26858, 优先级: 100, 中断: 关
+   本地调用栈:
+	vmlinux   __queue_work() + 40                          <kernel/workqueue.c:1437>
+	vmlinux   delayed_work_timer_fn() + 32                 <kernel/workqueue.c:1642>
+	vmlinux   call_timer_fn() + 84                         <kernel/time/timer.c:1450>
+	vmlinux   expire_timers() + 328                        <kernel/time/timer.c:1490>
+	vmlinux   __run_timers() + 492                         <kernel/time/timer.c:1789>
+	vmlinux   run_timer_softirq() + 36                     <kernel/time/timer.c:1802>
+	vmlinux   __do_softirq() + 356                         <kernel/softirq.c:305>
+	vmlinux   do_softirq_own_stack()                       <include/linux/interrupt.h:578>
+	vmlinux   invoke_softirq() + 52                        <kernel/softirq.c:402>
+	vmlinux   __irq_exit_rcu() + 260                       <kernel/softirq.c:432>
+	vmlinux   irq_exit()                                   <kernel/softirq.c:456>
+	vmlinux   __handle_domain_irq(lookup=true) + 312       <kernel/irq/irqdesc.c:703>
+	vmlinux   handle_domain_irq() + 8                      <include/linux/irqdesc.h:170>
+	vmlinux   gic_handle_irq() + 104                       <drivers/irqchip/irq-gic-v3.c:756>
+	vmlinux > 0xFFFFFFE91B212620()                         <common/arch/arm64/kernel/entry.S:657>
+	vmlinux   __preempt_count_dec_and_test()               <arch/arm64/include/asm/preempt.h:61>
+	vmlinux   __raw_spin_unlock_irq() + 12                 <include/linux/spinlock_api_smp.h:169>
+	vmlinux   _raw_spin_unlock_irq() + 12                  <kernel/locking/spinlock.c:199>
+	vmlinux   finish_lock_switch() + 12                    <kernel/sched/core.c:3773>
+	vmlinux   finish_task_switch() + 144                   <kernel/sched/core.c:3873>
+	vmlinux   context_switch(rf=0xFFFFFFC02B3CBD88) + 408  <kernel/sched/core.c:4038>
+	vmlinux   __schedule(preempt=false) + 1468             <kernel/sched/core.c:4795>
+	vmlinux   schedule() + 124                             <kernel/sched/core.c:4873>
+	vmlinux   worker_thread() + 1368                       <kernel/workqueue.c:2466>
+	vmlinux   kthread() + 332                              <kernel/kthread.c:313>
+	vmlinux   0xFFFFFFE91B21591C()                         <common/arch/arm64/kernel/entry.S:1122>
+	== 栈结束 ==
+   对应汇编指令:
+	行号  地址               指令			提示
+	kernel/workqueue.c
+	1437: FFFFFFE91B368DAC:  LDRB W8, [X1, #0x102]	; __queue_work()参数 2可能有问题
+
+	kernel/workqueue.c
+	1642: FFFFFFE91B36D178:  LDR X1, [X0, #0x38]	; delayed_work_timer_fn()参数 1可能有问题
+	      FFFFFFE91B36D184:  BL __queue_work()
+
+	arch/arm64/include/asm/preempt.h
+	      FFFFFFE91B4656EC:  MOV X21, X0	; call_timer_fn()参数 1可能有问题
+	kernel/time/timer.c
+	1450: FFFFFFE91B46570C:  MOV X0, X21
+	      FFFFFFE91B465710:  BLR X20
+
+	kernel/time/timer.c
+	      FFFFFFE91B4652D8:  MOV X19, X1	; expire_timers()参数 2可能有问题
+	      FFFFFFE91B465300:  B FFFFFFE91B465318
+	1481: FFFFFFE91B465318:  LDR X0, [X19]
+	1488: FFFFFFE91B465348:  TBNZ W9, #21, FFFFFFE91B4653BC
+	arch/arm64/include/asm/preempt.h
+	61  : FFFFFFE91B4653BC:  
+	kernel/time/timer.c
+	1490: FFFFFFE91B4653DC:  BL call_timer_fn()
+
+	kernel/time/timer.c
+	      FFFFFFE91B465020:  MOV X8, SP	;  R31:0xFFFFFFC00801BE90
+	1773: FFFFFFE91B465028:  SUB X23, X8, #0x8
+	      FFFFFFE91B465030:  B FFFFFFE91B465064
+	1774: FFFFFFE91B465064:  
+	0   : FFFFFFE91B465078:  MOV W25, #0
+	1517: FFFFFFE91B465100:  ADD W25, W25, #0x1
+	1788: FFFFFFE91B465138:  MOV W8, W25
+	      FFFFFFE91B465140:  LSL X26, X8, #0x3
+	1789: FFFFFFE91B465150:  ADD X1, X23, X26
+	      FFFFFFE91B465158:  BL expire_timers()
+	当时的寄存器值:
+	X0: 0000000000000000,  X1: 0000000000000000,  X2: FFFFFF80D12F7A80,  X3: 0000000000000001
+	X4: 0000000000000080,  X5: 0000000000000000,  X6: 0000000000000000,  X7: 0000000000000001
+	X8: 0000000000000000,  X9: 0000000100000102,  X10: 00000001441AA743, X11: 00000001041AA744
+	X12: FFFFFF81D8E8AEA8, X13: 0000000000000040, X14: FFFFFF81D8E8AEB0, X15: FFFFFFFFFFFFFFFF
+	X16: 0000000000000000, X17: 00000001041AA744, X18: FFFFFFC00801D050, X19: 0000000000000102
+	X20: FFFFFFE91CA36CE8, X21: FFFFFF80D12F7AB0, X22: FFFFFF80036C5C80, X23: 00000000000000E0
+	X24: FFFFFF80036C5C80, X25: 0000000000000001, X26: FFFFFFE91D956008, X27: FFFFFFE91D989DD8
+	X28: FFFFFFE91DB1F758, X29: FFFFFFC00801BD00, X30: FFFFFFE91B36D188, SP: FFFFFFC00801BCF0
+	PC: FFFFFFE91B368DAC
+
+其他CPU信息:
+   CPU0: 空闲(WFI)
+
+   CPU1: 空闲(WFI)
+
+   CPU2: 空闲(WFI)
+
+   CPU4: 空闲(WFI)
+
+   CPU5: 空闲(WFI)
+
+   CPU6: (null), pid: 0, EL0t
+   本地调用栈:
+	......  0x000000604179B0D0()
+	== 栈结束 ==
+
+   CPU7: 空闲(WFI)
+
+== 线程信息(共: 6419, 正在运行: 3) ==
+== buddy检查 ==
+分配器: buddy, 总共: 7.5GB, ion使用: N/A, 当前空闲: 135.1MB, 低内存阈值: 100MB, 调试等级: 0
+
+
+
+== slub检查 ==
+分配器: slub, 当前分配: 674.0MB, 当前使用: 498.9MB, 泄露阈值: 768MB, 调试等级: 0
+
+正常
+
+
+== 日志信息 ==
+kernel log:
+[275623.979905] [T119358] WARNING: CPU: 1 PID: 19358 at drivers/regulator/core.c:2856 _regulator_disable+0x74/0x48c
+[275623.982560] [T119358] Call trace:
+[275623.985342] [T119358] WARNING: CPU: 1 PID: 19358 at drivers/regulator/core.c:2856 _regulator_disable+0x74/0x48c
+[275623.989623] [T119358] Call trace:
+
+
+分析KE还需以下文件, 请提供out/target/product/$proj/obj/KERNEL_OBJ目录下相应的文件(必须同一次编译生成, 详情请查看MOL上的'[FAQ06985]KE发生后如何判断vmlinux和log是否匹配'):
+mrdump.ko
+iommu_debug.ko
+mtk_iommu.ko

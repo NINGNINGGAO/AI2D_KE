@@ -1,0 +1,44 @@
+$** *** *** *** *** *** *** *** Fatal *** *** *** *** *** *** *** **$
+Build Info: 'alps-vf-mp-s0.mp1unknown:alps-vf-mp-s0.mp1unknown-V17.23_reallytek.s0mp1rc.k61v1.64.bsp_P8.V13.8:mt6789:S01,Infinix/X6886-OP/Infinix-X6886:15/AP3A.240905.015.A2/103033:user_root/relea'
+MSSI Info: 'Infinix/TSSI/FULL-64-ARMV82:15/AP3A.240905.015.A2/250606V759:user/release-keys'
+MGVI Info: 'mgvi_64_nfc_armv82'
+MGK Info: 'mgk_64_entry_level_k510'
+VF System Info: 'unknown:alps-mp-v0.mp1-V13.8'
+Exception Log Time:[Mon Jun  9 12:05:26 CST 2025] [114.7540]
+
+Exception Class: Kernel (KE)
+PC is at [<ffffffe91b368dac>] __queue_work+0x28/0xba4
+LR is at [<ffffffe91b36d188>] delayed_work_timer_fn+0x24/0x34
+
+Current Executing Process:
+[kworker/3:1H, 26858][kthreadd, 2]
+
+Backtrace:
+[<ffffffe91b2abff8>] die_kernel_fault+0x80/0x94
+[<ffffffe91b2abf28>] __do_kernel_fault+0x23c/0x28c     
+[<ffffffe91cc11e90>] do_page_fault+0xb0/0x858  
+[<ffffffe91cc11dc0>] do_translation_fault+0x44/0x64    
+[<ffffffe91b2ab2f4>] do_mem_abort+0x68/0x164   
+[<ffffffe91c955bd0>] el1_abort+0x40/0x68       
+[<ffffffe91c955b5c>] el1_sync_handler+0x54/0x88
+[<ffffffe91b212488>] el1_sync+0x88/0x140       
+[<ffffffe91b368dac>] __queue_work+0x28/0xba4   
+[<ffffffe91b36d184>] delayed_work_timer_fn+0x20/0x34   
+[<ffffffe91b465710>] call_timer_fn+0x54/0x314  
+[<ffffffe91b4653dc>] expire_timers+0x148/0x428 
+[<ffffffe91b465158>] __run_timers+0x1ec/0x328  
+[<ffffffe91b464f38>] run_timer_softirq+0x24/0x58       
+[<ffffffe91b2105e4>] __do_softirq+0x164/0x5ec  
+[<ffffffe91b33ca50>] __irq_exit_rcu+0x104/0x124
+[<ffffffe91b403974>] __handle_domain_irq+0x138/0x214   
+[<ffffffe91b21037c>] gic_handle_irq.30586+0x68/0x168   
+[<ffffffe91b212620>] el1_irq+0xe0/0x1c0
+[<ffffffe91b391ee0>] finish_task_switch+0x8c/0x428     
+[<ffffffe91cc02458>] __schedule+0x5bc/0xc48    
+[<ffffffe91cc02b60>] schedule+0x7c/0x164       
+[<ffffffe91b370bb8>] worker_thread+0x558/0x920 
+[<ffffffe91b37f498>] kthread+0x14c/0x200       
+[<ffffffe91b215918>] ret_from_fork+0xc/0x30    
+
+
+$** *** *** *** *** *** *** *** Fatal *** *** *** *** *** *** *** **$

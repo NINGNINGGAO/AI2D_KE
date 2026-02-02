@@ -1,0 +1,25 @@
+NUM_VCORE_OPP : 4
+NUM_DDR_OPP : 7
+NUM_DVFSRC_OPP : 21
+
+[OPP0 ]: 725000   uv 4266000  khz
+[OPP1 ]: 725000   uv 3200000  khz
+[OPP2 ]: 650000   uv 3200000  khz
+[OPP3 ]: 725000   uv 2400000  khz
+[OPP4 ]: 650000   uv 2400000  khz
+[OPP5 ]: 600000   uv 2400000  khz
+[OPP6 ]: 725000   uv 1866000  khz
+[OPP7 ]: 650000   uv 1866000  khz
+[OPP8 ]: 600000   uv 1866000  khz
+[OPP9 ]: 725000   uv 1600000  khz
+[OPP10]: 650000   uv 1600000  khz
+[OPP11]: 600000   uv 1600000  khz
+[OPP12]: 550000   uv 1600000  khz
+[OPP13]: 725000   uv 1200000  khz
+[OPP14]: 650000   uv 1200000  khz
+[OPP15]: 600000   uv 1200000  khz
+[OPP16]: 550000   uv 1200000  khz
+[OPP17]: 725000   uv 800000   khz
+[OPP18]: 650000   uv 800000   khz
+[OPP19]: 600000   uv 800000   khz
+[OPP20]: 550000   uv 800000   khz

@@ -1,0 +1,28 @@
+[20250718_111953_518132]db DEC path: D:\jira\x6886\qlc\151687055M000180\db.fatal.00.KE.dbg.DEC
+[20250718_111953_518132][ke_controller]symbol path: D:\jira\x6886\qlc\151687055M000180\db.fatal.00.KE.dbg.DEC\symbols
+[20250718_111953_535485][ke_dec]g_kernel_offset:1f6a400000
+[20250718_112011_084469][ke_controller]no dram_cpu_lp_issue
+[20250718_112011_541162][ke_parser]find ke type fail
+[20250718_112011_541162][ke_parser]pc:['pick_next_task_fair', 'out/android12-5.10/common\\kernel/sched\\fair.c:7416']
+[20250718_112011_541162][ke_parser]lr:['pick_next_task_fair', 'out/android12-5.10/common\\kernel/sched\\fair.c:7426']
+[20250718_112011_541162][ke_parser]ko_list:[]
+[20250718_112011_541162][ke_parser]process:[kworker/u16:3, 267][kthreadd, 2]
+[20250718_112011_578221][ke_controller]Owner list for MOF:
+[20250718_112011_578221]  pick_next_task_fair - out/android12-5.10/common\kernel/sched\fair.c:7416
+[20250718_112011_578221]  pick_next_task_fair - out/android12-5.10/common\kernel/sched\fair.c:7426
+[20250718_112011_578221]  die_kernel_fault - out/android12-5.10/common\arch/arm64/mm\fault.c:300
+[20250718_112011_578221]  __do_kernel_fault - out/android12-5.10/common\arch/arm64/mm\fault.c:408
+[20250718_112011_578221]  do_page_fault - out/android12-5.10/common\arch/arm64/mm\fault.c:694
+[20250718_112011_578221]  do_translation_fault - out/android12-5.10/common\arch/arm64/mm\fault.c:705
+[20250718_112011_578221]  do_mem_abort - out/android12-5.10/common\arch/arm64/mm\fault.c:848
+[20250718_112011_578221]  el1_abort - out/android12-5.10/common\arch/arm64/kernel\entry-common.c:122
+[20250718_112011_578221]  el1_sync_handler - out/android12-5.10/common\arch/arm64/kernel\entry-common.c:205
+[20250718_112011_578221]  el1_sync - out/android12-5.10/common\common/arch/arm64/kernel\entry.S:770
+[20250718_112011_578221]  pick_next_task_fair - out/android12-5.10/common\kernel/sched\fair.c:7416
+[20250718_112011_578221]  __schedule - out/android12-5.10/common\kernel/sched\core.c:4762
+[20250718_112011_578221]  schedule - out/android12-5.10/common\kernel/sched\core.c:4873
+[20250718_112011_578221]  worker_thread - out/android12-5.10/common\kernel\workqueue.c:2466
+[20250718_112011_578221]  kthread - out/android12-5.10/common\kernel\kthread.c:313
+[20250718_112011_578221]  ret_from_fork - out/android12-5.10/common\common/arch/arm64/kernel\entry.S:1122
+[20250718_112011_578221][ke_controller]Search MOF file: out/android12-5.10/common\kernel/sched\fair.c
+[20250718_112011_589980][ke_controller]write json done

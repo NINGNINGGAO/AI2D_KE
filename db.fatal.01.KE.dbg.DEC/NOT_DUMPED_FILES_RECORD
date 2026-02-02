@@ -1,0 +1,20 @@
+Dumped [SYS_LAST_KMSG] fail, [/proc/last_kmsg] dump issue: No such file or directory
+Dumped [SYS_ATF_LAST] fail, [/proc/atf_log/atf_last] dump issue: No such file or directory
+Dumped [SYS_DRAM_KMSG] fail, [/proc/aed/last_dram_kmsg] dump issue: No such file or directory
+Dumped [SYS_ATF_CRASH] fail, [/proc/atf_log/atf_crash] dump issue: No such file or directory
+Dumped [zcore-1.zip] fail, [/data/vendor/core/zcore-1.zip] dump issue: No such file or directory
+Dumped [CMDQ_MB_STATUS] fail, [/sys/kernel/debug/cmdq/cmdq-status] dump issue: No such file or directory
+Dumped [CMDQ_MB_RECORD] fail, [/sys/kernel/debug/cmdq/cmdq-record] dump issue: No such file or directory
+Dumped [SYS_CPUHVFS_REPO] fail, [/sys/kernel/debug/cpuhvfs/dbg_repo_bak] dump issue: No such file or directory
+Dumped [SYS_CPUHVFS_REPO] fail, [/proc/cpuhvfs/dbg_repo_bak] dump issue: No such file or directory
+Dumped [SYS_LAST_ETM] fail, [/proc/last_etm] dump issue: No such file or directory
+Dumped [SYS_LAST_PC_DUMP] fail, [/sys/bus/platform/drivers/dbg_reg_dump/last_pc_dump] dump issue: No such file or directory
+Dumped [SYS_ICACHE_DUMP] fail, [/proc/icache_dump/raw] dump issue: No such file or directory
+Dumped [SYS_DYNAMIC_DEBUG] fail, [/sys/kernel/debug/dynamic_debug/control] dump issue: No such file or directory
+Dumped [SYS_VCORE_DEBUG] fail, [/sys/power/vcorefs/vcore_debug] dump issue: No such file or directory
+Dumped [SYS_OPP_TABLE] fail, [/sys/power/vcorefs/opp_table] dump issue: No such file or directory
+Dumped [SYS_MTK_ES_REG_DUMP] fail, [/proc/mtk_es_reg_dump] dump issue: No such file or directory
+Dumped [SYS_EEM_DUMP] fail, [/proc/eem/eem_dump] dump issue: No such file or directory
+Dumped [SYS_PVR_DEBUG_DUMP] fail, [/d/pvr/debug_dump] dump issue: No such file or directory
+Dumped [SYS_DISPLAY] fail, [/sys/kernel/debug/mtkfb] dump issue: No such file or directory
+Dumped [DATA_ANR_TRACES] fail, [/data/anr] dump issue: Permission denied
