@@ -123,6 +123,32 @@ class CrashAnalyzer:
             # Parse AI response
             analysis_result = self._parse_analysis_response(analysis_response)
             
+            # Perform assembly-level analysis if available
+            asm_analysis = context.get('assembly_analysis', {})
+            if asm_analysis and asm_analysis.get('performed'):
+                logger.info("Performing assembly-level deep analysis...")
+                asm_prompt = self.prompt_templates.assembly_level_analysis_prompt(context)
+                
+                asm_response = await self._call_qwen_api(
+                    prompt=asm_prompt,
+                    system_prompt=system_prompt,
+                    temperature=0.2,
+                    max_tokens=4096
+                )
+                
+                analysis_result['assembly_analysis'] = asm_response
+                
+                # If memory corruption detected, get specialized analysis
+                if asm_analysis.get('anomaly_count', 0) > 0:
+                    mem_prompt = self.prompt_templates.memory_corruption_analysis_prompt(context)
+                    mem_response = await self._call_qwen_api(
+                        prompt=mem_prompt,
+                        system_prompt=system_prompt,
+                        temperature=0.2,
+                        max_tokens=2048
+                    )
+                    analysis_result['memory_corruption_analysis'] = mem_response
+            
             # Get fix suggestions
             fix_prompt = self.prompt_templates.fix_suggestion_prompt(
                 context, analysis_result.get('analysis', '')

@@ -315,3 +315,218 @@ class GDBToolGateway:
                     results["crash_function_source"] = source_info
         
         return results
+
+    async def get_function_assembly_with_context(
+        self,
+        vmlinux_path: str,
+        function_name: str,
+        core_file: Optional[str] = None,
+        context_instructions: int = 20
+    ) -> Dict[str, Any]:
+        """
+        获取函数的汇编代码，包含上下文信息
+        
+        Args:
+            vmlinux_path: vmlinux 文件路径
+            function_name: 函数名
+            core_file: 可选的 core dump 文件
+            context_instructions: 获取的指令数量
+            
+        Returns:
+            包含汇编代码和元信息的字典
+        """
+        result = {
+            "function": function_name,
+            "assembly": "",
+            "start_address": None,
+            "end_address": None,
+            "success": False
+        }
+        
+        # 首先获取函数地址范围
+        func_info = await self.get_function_info(vmlinux_path, function_name, core_file)
+        if func_info.success:
+            # 解析函数地址
+            addr_match = re.search(r'0x([0-9a-fA-F]+)', func_info.output)
+            if addr_match:
+                result["start_address"] = f"0x{addr_match.group(1)}"
+        
+        # 反汇编函数
+        disasm_result = await self.disassemble_function(vmlinux_path, function_name, core_file)
+        if disasm_result.success:
+            result["assembly"] = disasm_result.output
+            result["success"] = True
+            
+            # 尝试解析结束地址
+            lines = disasm_result.output.strip().split('\n')
+            if lines:
+                last_line = lines[-1]
+                addr_match = re.match(r'\s*(0x[0-9a-fA-F]+)', last_line)
+                if addr_match:
+                    result["end_address"] = addr_match.group(1)
+        
+        return result
+
+    async def analyze_crash_point_registers(
+        self,
+        vmlinux_path: str,
+        crashed_pc: str,
+        core_file: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        分析崩溃点的寄存器状态和指令
+        
+        Args:
+            vmlinux_path: vmlinux 路径
+            crashed_pc: 崩溃时的 PC 地址
+            core_file: core dump 文件
+            
+        Returns:
+            崩溃点分析结果
+        """
+        result = {
+            "crashed_pc": crashed_pc,
+            "registers": {},
+            "disassembly_at_crash": "",
+            "disassembly_before_crash": "",
+            "function_context": {}
+        }
+        
+        # 获取寄存器
+        reg_result = await self.get_registers(vmlinux_path, core_file)
+        if reg_result.success:
+            result["registers"] = self._parse_registers_output(reg_result.output)
+        
+        # 获取崩溃点的汇编（前后各10条指令）
+        try:
+            pc_int = int(crashed_pc, 16)
+            # 前面10条指令（假设每条指令4字节）
+            before_addr = f"0x{pc_int - 40:x}"
+            disasm_before = await self.disassemble_address(
+                vmlinux_path, before_addr, num_instructions=20, core_file=core_file
+            )
+            if disasm_before.success:
+                result["disassembly_before_crash"] = disasm_before.output
+            
+            # 崩溃点本身
+            disasm_at = await self.disassemble_address(
+                vmlinux_path, crashed_pc, num_instructions=10, core_file=core_file
+            )
+            if disasm_at.success:
+                result["disassembly_at_crash"] = disasm_at.output
+        except (ValueError, TypeError) as e:
+            logger.error(f"Failed to calculate disassembly addresses: {e}")
+        
+        # 获取源代码上下文
+        source_info = await self.get_source_line(vmlinux_path, crashed_pc, core_file)
+        if source_info:
+            result["source_context"] = source_info
+        
+        return result
+
+    def _parse_registers_output(self, output: str) -> Dict[str, str]:
+        """解析 GDB 寄存器输出"""
+        registers = {}
+        
+        # ARM64 寄存器格式
+        # x0  0xffffffc02b3cbd88
+        # x1  0x0
+        # sp  0xffffffc00801bcf0
+        
+        patterns = [
+            r'(x\d+|sp|pc|lr|fp|xzr)\s+(0x[0-9a-fA-F]+|\d+)',  # ARM64
+            r'(r\d+|sp|pc|lr)\s+(0x[0-9a-fA-F]+|\d+)',          # ARM32
+            r'(rax|rbx|rcx|rdx|rsi|rdi|rbp|rsp|r\d+)\s+(0x[0-9a-fA-F]+|\d+)',  # x86_64
+        ]
+        
+        for line in output.split('\n'):
+            for pattern in patterns:
+                match = re.match(pattern, line.strip(), re.IGNORECASE)
+                if match:
+                    reg_name = match.group(1).lower()
+                    reg_value = match.group(2)
+                    registers[reg_name] = reg_value
+                    break
+        
+        return registers
+
+    async def get_backtrace_with_full_context(
+        self,
+        vmlinux_path: str,
+        core_file: Optional[str] = None,
+        max_frames: int = 10
+    ) -> List[Dict[str, Any]]:
+        """
+        获取包含完整上下文的调用栈
+        
+        Returns:
+            每帧包含汇编、寄存器、源代码的调用栈
+        """
+        frames = []
+        
+        # 获取基本调用栈
+        bt_result = await self.get_backtrace(vmlinux_path, core_file, full=True)
+        if not bt_result.success:
+            return frames
+        
+        # 解析每一帧
+        bt_lines = bt_result.output.split('\n')
+        current_frame = None
+        
+        for line in bt_lines:
+            line = line.strip()
+            if not line:
+                continue
+            
+            # 匹配帧头: #0  0xffffffe91b368dac in __queue_work ()
+            frame_match = re.match(r'#(\d+)\s+(0x[0-9a-fA-F]+)\s+in\s+(\S+)', line)
+            if frame_match:
+                if current_frame:
+                    frames.append(current_frame)
+                
+                frame_num = frame_match.group(1)
+                pc_addr = frame_match.group(2)
+                func_name = frame_match.group(3)
+                
+                current_frame = {
+                    "frame_number": int(frame_num),
+                    "pc": pc_addr,
+                    "function": func_name,
+                    "locals": {},
+                    "args": {}
+                }
+            
+            # 解析局部变量
+            elif current_frame and (' = ' in line or 'Local variables' in line):
+                var_match = re.match(r'(\w+)\s+=\s+(.*)', line)
+                if var_match:
+                    var_name = var_match.group(1)
+                    var_value = var_match.group(2)
+                    current_frame["locals"][var_name] = var_value
+            
+            # 解析参数
+            elif current_frame and 'arg' in line.lower():
+                arg_match = re.match(r'(\w+)\s+=\s+(.*)', line)
+                if arg_match:
+                    arg_name = arg_match.group(1)
+                    arg_value = arg_match.group(2)
+                    current_frame["args"][arg_name] = arg_value
+        
+        if current_frame:
+            frames.append(current_frame)
+        
+        # 限制帧数
+        frames = frames[:max_frames]
+        
+        # 为每帧获取汇编代码
+        for frame in frames:
+            try:
+                func_asm = await self.get_function_assembly_with_context(
+                    vmlinux_path, frame["function"], core_file, context_instructions=20
+                )
+                if func_asm["success"]:
+                    frame["assembly"] = func_asm
+            except Exception as e:
+                logger.warning(f"Failed to get assembly for frame {frame['frame_number']}: {e}")
+        
+        return frames

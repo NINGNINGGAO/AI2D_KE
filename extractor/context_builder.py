@@ -38,6 +38,7 @@ class ContextBuilder:
             'modules': self._extract_modules(extracted_info),
             'registers': self._extract_registers(extracted_info),
             'system_info': self._extract_system_info(extracted_info),
+            'assembly_analysis': self._extract_assembly_analysis(extracted_info),
             'raw_context_blocks': self._build_context_blocks(extracted_info)
         }
         
@@ -119,6 +120,35 @@ class ContextBuilder:
             sys_info = vmcore_analysis['system_info']
         
         return sys_info
+
+    def _extract_assembly_analysis(self, extracted_info: Dict) -> Dict[str, Any]:
+        """提取汇编层次分析结果"""
+        vmcore_analysis = extracted_info.get('vmcore_analysis', {})
+        asm_analysis = vmcore_analysis.get('assembly_analysis', {})
+        
+        if not asm_analysis or not asm_analysis.get('performed'):
+            return {
+                'performed': False,
+                'reason': asm_analysis.get('error', 'No assembly analysis performed')
+            }
+        
+        return {
+            'performed': True,
+            'crash_pc': asm_analysis.get('crash_pc'),
+            'anomaly_count': len(asm_analysis.get('anomalies', [])),
+            'anomalies': asm_analysis.get('anomalies', []),
+            'suspicious_patterns': asm_analysis.get('suspicious_patterns', []),
+            'recommendations': asm_analysis.get('recommendations', []),
+            'bitflip_detected': 'bitflip_detection' in asm_analysis,
+            'bitflip_details': asm_analysis.get('bitflip_detection'),
+            'function_analyses_summary': [
+                {
+                    'function': fa.get('function'),
+                    'suspicious_count': len(fa.get('analysis', {}).get('anomalies', []))
+                }
+                for fa in asm_analysis.get('function_analyses', [])
+            ]
+        }
     
     def _build_context_blocks(self, extracted_info: Dict) -> List[Dict[str, str]]:
         """
@@ -161,6 +191,13 @@ class ContextBuilder:
             'block_id': 'system_info',
             'type': 'system',
             'content': self._format_system_info(extracted_info)
+        })
+        
+        # Block 6: 汇编分析
+        blocks.append({
+            'block_id': 'assembly_analysis',
+            'type': 'assembly',
+            'content': self._format_assembly_analysis(extracted_info)
         })
         
         return blocks
@@ -242,7 +279,7 @@ class ContextBuilder:
                 lines.append(f"  {key}: {value}")
         
         if vmcore_analysis.get('modules'):
-            lines.append(f"\\nLoaded Modules ({len(vmcore_analysis['modules'])}):")
+            lines.append(f"\nLoaded Modules ({len(vmcore_analysis['modules'])}):")
             for mod in vmcore_analysis['modules'][:10]:  # 限制显示数量
                 if isinstance(mod, dict):
                     lines.append(f"  {mod.get('name', 'unknown')}")
@@ -250,8 +287,57 @@ class ContextBuilder:
                     lines.append(f"  {mod}")
         
         if vmcore_analysis.get('registers'):
-            lines.append("\\nKey Registers:")
+            lines.append("\nKey Registers:")
             for reg, val in list(vmcore_analysis['registers'].items())[:10]:
                 lines.append(f"  {reg}: {val}")
         
-        return "\\n".join(lines) if lines else "No system info available"
+        return "\n".join(lines) if lines else "No system info available"
+
+    def _format_assembly_analysis(self, extracted_info: Dict) -> str:
+        """格式化汇编分析信息"""
+        lines = []
+        
+        vmcore_analysis = extracted_info.get('vmcore_analysis', {})
+        asm_analysis = vmcore_analysis.get('assembly_analysis', {})
+        
+        if not asm_analysis or not asm_analysis.get('performed'):
+            return "No assembly analysis available"
+        
+        lines.append("Assembly-Level Analysis:")
+        lines.append(f"  Crash PC: {asm_analysis.get('crash_pc', 'Unknown')}")
+        lines.append(f"  Anomalies Found: {len(asm_analysis.get('anomalies', []))}")
+        
+        # 位翻转检测
+        if 'bitflip_detection' in asm_analysis:
+            bitflip = asm_analysis['bitflip_detection']
+            lines.append(f"\n  Bitflip Detection:")
+            lines.append(f"    Original: {bitflip.get('original_value')}")
+            lines.append(f"    Flipped: {bitflip.get('flipped_value')}")
+            lines.append(f"    Bit Position: {bitflip.get('bit_position')}")
+            lines.append(f"    Confidence: {bitflip.get('confidence')}")
+        
+        # 异常详情
+        anomalies = asm_analysis.get('anomalies', [])
+        if anomalies:
+            lines.append(f"\n  Detected Anomalies:")
+            for i, anomaly in enumerate(anomalies[:5], 1):  # 只显示前5个
+                lines.append(f"    {i}. [{anomaly.get('severity')}] {anomaly.get('type')}")
+                lines.append(f"       {anomaly.get('description', '')}")
+                if 'function' in anomaly:
+                    lines.append(f"       Function: {anomaly['function']}")
+        
+        # 可疑模式
+        patterns = asm_analysis.get('suspicious_patterns', [])
+        if patterns:
+            lines.append(f"\n  Suspicious Patterns:")
+            for pattern in patterns[:3]:
+                lines.append(f"    - {pattern.get('function')}: {pattern.get('finding')}")
+        
+        # 分析建议
+        recommendations = asm_analysis.get('recommendations', [])
+        if recommendations:
+            lines.append(f"\n  Recommendations:")
+            for rec in recommendations[:3]:
+                lines.append(f"    - {rec}")
+        
+        return "\n".join(lines)

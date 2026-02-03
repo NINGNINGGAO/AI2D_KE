@@ -253,3 +253,115 @@ Identify potential bugs and suggest improvements."""
             return PromptTemplates.oops_analysis_prompt(context)
         else:
             return PromptTemplates.crash_analysis_user_prompt(context)
+
+    @staticmethod
+    def assembly_level_analysis_prompt(context: Dict[str, Any]) -> str:
+        """Assembly-level deep analysis prompt."""
+        asm_analysis = context.get('assembly_analysis', {})
+        
+        prompt = f"""Perform a detailed assembly-level analysis of this kernel crash:
+
+=== CRASH CONTEXT ===
+Crash PC: {asm_analysis.get('crash_pc', 'Unknown')}
+Crash Type: {context.get('crash_type', 'Unknown')}
+Process: {context.get('process_name', 'Unknown')} (PID: {context.get('pid', 'N/A')})
+CPU: {context.get('cpu', 'N/A')}
+
+=== REGISTERS AT CRASH ===
+{chr(10).join(f"  {reg}: {val}" for reg, val in list(context.get('registers', {}).items())[:20])}
+
+=== ASSEMBLY ANALYSIS RESULTS ===
+Anomalies Detected: {asm_analysis.get('anomaly_count', 0)}
+Bitflip Detected: {asm_analysis.get('bitflip_detected', False)}
+"""
+        
+        if asm_analysis.get('bitflip_details'):
+            bitflip = asm_analysis['bitflip_details']
+            prompt += f"""
+Bitflip Details:
+  - Original Value: {bitflip.get('original_value')}
+  - Flipped Value: {bitflip.get('flipped_value')}
+  - Bit Position: {bitflip.get('bit_position')}
+  - Confidence: {bitflip.get('confidence')}
+"""
+        
+        if asm_analysis.get('anomalies'):
+            prompt += "\n=== DETECTED ANOMALIES ===\n"
+            for i, anomaly in enumerate(asm_analysis['anomalies'][:5], 1):
+                prompt += f"""
+{i}. [{anomaly.get('severity')}] {anomaly.get('type')}
+   Description: {anomaly.get('description', 'N/A')}
+   Function: {anomaly.get('function', 'N/A')}
+"""
+        
+        if asm_analysis.get('suspicious_patterns'):
+            prompt += "\n=== SUSPICIOUS PATTERNS ===\n"
+            for pattern in asm_analysis['suspicious_patterns'][:3]:
+                prompt += f"  - {pattern.get('function')}: {pattern.get('finding')}\n"
+        
+        prompt += f"""
+=== CALL STACK ===
+{chr(10).join(f"  {i}. {frame.get('function', 'unknown')}" for i, frame in enumerate(context.get('call_stack', [])[:10]))}
+
+=== ANALYSIS TASKS ===
+Based on the assembly-level information provided, please analyze:
+
+1. **Root Cause at Instruction Level**:
+   - Which specific instruction caused the crash?
+   - What was the exact memory address being accessed?
+   - Was it a load or store operation?
+
+2. **Register State Analysis**:
+   - Analyze the register values at crash time
+   - Identify any suspicious or unexpected values
+   - Track how the faulting address was computed
+
+3. **Bitflip/Memory Corruption Detection**:
+   - Could this be caused by a bitflip? (check bitflip detection results)
+   - Are there signs of memory corruption (unusual addresses, patterns)?
+   - Could it be DMA corruption or hardware issues?
+
+4. **Memory Access Pattern**:
+   - Was the access through a valid pointer?
+   - Was there an offset calculation that went wrong?
+   - Was it accessing kernel stack, heap, or device memory?
+
+5. **Code Path Analysis**:
+   - Trace how execution reached the crash point
+   - Identify any missing boundary checks
+   - Check for race conditions or synchronization issues
+
+6. **Fix Recommendations**:
+   - Specific code changes needed
+   - Defensive programming suggestions
+   - Hardware/memory diagnostics if applicable
+
+Please provide your analysis in structured format with technical details."""
+        
+        return prompt
+
+    @staticmethod
+    def memory_corruption_analysis_prompt(context: Dict[str, Any]) -> str:
+        """Specialized prompt for memory corruption analysis."""
+        return f"""Analyze potential memory corruption in this kernel crash:
+
+=== CRASH INFORMATION ===
+Crash Type: {context.get('crash_type', 'Unknown')}
+Fault Address: {context.get('fault_address', 'Unknown')}
+Crash Location: {context.get('crash_location', 'Unknown')}
+
+=== REGISTERS ===
+{chr(10).join(f"  {reg}: {val}" for reg, val in context.get('registers', {}).items())}
+
+=== ASSEMBLY ANALYSIS ===
+{context.get('assembly_analysis', {}).get('anomaly_count', 0)} anomalies detected
+
+Key questions to answer:
+1. Is the fault address valid kernel memory? (check against typical ranges)
+2. Is there evidence of stack corruption? (check SP, FP values)
+3. Could this be use-after-free? (check for freed object patterns)
+4. Is there heap corruption evidence? (check heap metadata)
+5. Could it be a buffer overflow? (check access offsets)
+6. Hardware issues: bitflips, DMA corruption, memory controller errors?
+
+Provide detailed technical analysis with evidence from the assembly level."""

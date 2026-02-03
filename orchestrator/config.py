@@ -49,6 +49,18 @@ class Settings(BaseSettings):
         description="日志格式"
     )
     
+    # 汇编分析配置 (v1.1)
+    ENABLE_ASSEMBLY_ANALYSIS: bool = Field(default=True, description="启用汇编层次分析")
+    MAX_ASM_CONTEXT_INSTRUCTIONS: int = Field(default=30, description="分析的汇编指令上下文数量")
+    BITFLIP_DETECTION_ENABLED: bool = Field(default=True, description="启用位翻转检测")
+    
+    # 内核源码分析配置 (预留, v1.1+)
+    KERNEL_SOURCE_PATH: Optional[str] = Field(default=None, description="内核源码路径")
+    KERNEL_INDEX_DB_PATH: Optional[str] = Field(default=None, description="源码索引数据库路径")
+    SOURCE_ANALYZER_BACKEND: str = Field(default="stub", description="源码分析后端类型 (stub/cscope/clang/lsp)")
+    ENABLE_SOURCE_CACHE: bool = Field(default=True, description="启用源码分析缓存")
+    SOURCE_CACHE_TTL: int = Field(default=3600, description="源码分析缓存TTL(秒)")
+    
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"

@@ -14,6 +14,7 @@ from pathlib import Path
 from orchestrator.config import get_settings
 from tools.crash_tool import CrashTool
 from tools.gdb_tool import GDBTool
+from tools.asm_analyzer import AssemblyAnalyzer, analyze_crash_with_assembly
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +26,7 @@ class VmcoredParser:
         self.settings = get_settings()
         self.crash_tool = CrashTool()
         self.gdb_tool = GDBTool()
+        self.asm_analyzer = AssemblyAnalyzer()
     
     async def parse(self, vmcore_path: str, vmlinux_path: str) -> Dict[str, Any]:
         """
@@ -42,7 +44,8 @@ class VmcoredParser:
             'call_stack': [],
             'registers': {},
             'modules': [],
-            'error_info': None
+            'error_info': None,
+            'assembly_analysis': None  # 新增：汇编层次分析
         }
         
         try:
@@ -82,12 +85,149 @@ class VmcoredParser:
                 bt_result
             )
             
+            # 执行汇编层次分析
+            try:
+                result['assembly_analysis'] = await self._perform_assembly_analysis(
+                    vmcore_path, vmlinux_path, result
+                )
+            except Exception as e:
+                logger.error(f"Assembly analysis failed: {e}")
+                result['assembly_analysis'] = {
+                    'error': str(e),
+                    'performed': False
+                }
+            
             return result
             
         except Exception as e:
             logger.error(f"Failed to parse vmcore: {e}")
             result['error_info'] = str(e)
             return result
+    
+    async def _perform_assembly_analysis(
+        self,
+        vmcore_path: str,
+        vmlinux_path: str,
+        parse_result: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """
+        执行汇编层次分析
+        
+        Args:
+            vmcore_path: vmcore 路径
+            vmlinux_path: vmlinux 路径
+            parse_result: 已解析的基本信息
+            
+        Returns:
+            汇编分析结果
+        """
+        logger.info("Starting assembly-level analysis...")
+        
+        analysis_result = {
+            'performed': True,
+            'crash_pc': None,
+            'registers': parse_result.get('registers', {}),
+            'suspicious_patterns': [],
+            'anomalies': [],
+            'function_analyses': [],
+            'recommendations': []
+        }
+        
+        # 获取崩溃时的 PC
+        registers = parse_result.get('registers', {})
+        crash_pc = registers.get('pc') or registers.get('PC')
+        if not crash_pc:
+            # 尝试从调用栈第一帧获取
+            call_stack = parse_result.get('call_stack', [])
+            if call_stack and 'address' in call_stack[0]:
+                crash_pc = call_stack[0]['address']
+        
+        analysis_result['crash_pc'] = crash_pc
+        
+        if not crash_pc:
+            logger.warning("Cannot determine crash PC for assembly analysis")
+            return analysis_result
+        
+        # 使用 GDB 获取崩溃点的详细信息
+        try:
+            crash_context = await self.gdb_tool.analyze_crash_point_registers(
+                vmlinux_path, crash_pc, vmcore_path
+            )
+            analysis_result['crash_context'] = crash_context
+        except Exception as e:
+            logger.error(f"Failed to get crash context from GDB: {e}")
+        
+        # 分析调用栈中的关键函数
+        call_stack = parse_result.get('call_stack', [])
+        for i, frame in enumerate(call_stack[:3]):  # 只分析前3帧
+            func_name = frame.get('function', '')
+            func_addr = frame.get('address', '')
+            
+            if not func_name:
+                continue
+            
+            try:
+                # 获取函数汇编
+                func_asm = await self.gdb_tool.get_function_assembly_with_context(
+                    vmlinux_path, func_name, vmcore_path, context_instructions=30
+                )
+                
+                if func_asm['success'] and func_asm['assembly']:
+                    # 使用汇编分析器分析
+                    asm_report = analyze_crash_with_assembly(
+                        asm_output=func_asm['assembly'],
+                        registers=registers,
+                        crashed_address=crash_pc if i == 0 else func_addr,
+                        function_name=func_name
+                    )
+                    
+                    analysis_result['function_analyses'].append({
+                        'frame_index': i,
+                        'function': func_name,
+                        'analysis': asm_report
+                    })
+                    
+                    # 收集可疑模式
+                    if asm_report.get('anomalies'):
+                        for anomaly in asm_report['anomalies']:
+                            anomaly['function'] = func_name
+                            analysis_result['anomalies'].append(anomaly)
+                    
+                    # 收集建议
+                    if asm_report.get('recommendations'):
+                        for rec in asm_report['recommendations']:
+                            if rec not in analysis_result['recommendations']:
+                                analysis_result['recommendations'].append(rec)
+                    
+                    # 收集关键发现
+                    if asm_report.get('key_findings'):
+                        for finding in asm_report['key_findings']:
+                            analysis_result['suspicious_patterns'].append({
+                                'function': func_name,
+                                'finding': finding
+                            })
+                
+            except Exception as e:
+                logger.warning(f"Failed to analyze assembly for {func_name}: {e}")
+        
+        # 检测位翻转
+        if 'x0' in registers:
+            try:
+                x0_value = int(registers['x0'], 16)
+                bitflip_result = self.asm_analyzer.detect_bitflip(x0_value)
+                if bitflip_result and bitflip_result['detected']:
+                    analysis_result['bitflip_detection'] = bitflip_result
+                    analysis_result['anomalies'].append({
+                        'type': 'bitflip',
+                        'severity': 'HIGH',
+                        'description': f"Possible bitflip in X0: {bitflip_result['flipped_value']} (bit {bitflip_result['bit_position']})",
+                        'register': 'X0'
+                    })
+            except (ValueError, TypeError):
+                pass
+        
+        logger.info(f"Assembly analysis completed. Found {len(analysis_result['anomalies'])} anomalies.")
+        return analysis_result
     
     def _parse_backtrace(self, bt_output: str) -> List[Dict[str, str]]:
         """解析 backtrace 输出"""
