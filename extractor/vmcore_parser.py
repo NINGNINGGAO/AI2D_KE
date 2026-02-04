@@ -12,32 +12,46 @@ from typing import Dict, Any, List, Optional
 from pathlib import Path
 
 from orchestrator.config import get_settings
-from tools.crash_tool import CrashTool
-from tools.gdb_tool import GDBTool
+from tools.crash_tool import CrashToolGateway
+from tools.gdb_tool import GDBToolGateway
+from tools.addr2line_tool import Addr2LineToolGateway
 from tools.asm_analyzer import AssemblyAnalyzer, analyze_crash_with_assembly
+
+# 导入新的分析器
+from .panic_overview import PanicOverviewExtractor, PanicOverview
+from .callstack_analyzer import CallStackAnalyzer, StackAnalysis
+from .register_analyzer import AdvancedRegisterAnalyzer, RegisterAnalysis
 
 logger = logging.getLogger(__name__)
 
 
 class VmcoredParser:
-    """vmcore 解析器"""
+    """vmcore 解析器 - 增强版"""
     
     def __init__(self):
         self.settings = get_settings()
-        self.crash_tool = CrashTool()
-        self.gdb_tool = GDBTool()
+        self.crash_tool = CrashToolGateway()
+        self.gdb_tool = GDBToolGateway()
+        self.addr2line_tool = Addr2LineToolGateway()
         self.asm_analyzer = AssemblyAnalyzer()
+        
+        # 初始化新的分析器
+        self.panic_extractor = PanicOverviewExtractor(self.crash_tool, self.gdb_tool)
+        self.stack_analyzer = CallStackAnalyzer(self.crash_tool, self.gdb_tool, self.addr2line_tool)
+        self.register_analyzer = AdvancedRegisterAnalyzer(self.crash_tool, self.gdb_tool)
     
-    async def parse(self, vmcore_path: str, vmlinux_path: str) -> Dict[str, Any]:
+    async def parse(self, vmcore_path: str, vmlinux_path: str, 
+                    log_analysis: Optional[Dict] = None) -> Dict[str, Any]:
         """
-        解析 vmcore 文件
+        解析 vmcore 文件 - 增强版
         
         Args:
             vmcore_path: vmcore 文件路径
             vmlinux_path: vmlinux 文件路径
+            log_analysis: 可选的日志分析结果
             
         Returns:
-            解析结果字典
+            解析结果字典（包含新的增强分析）
         """
         result = {
             'crash_type': None,
@@ -45,7 +59,11 @@ class VmcoredParser:
             'registers': {},
             'modules': [],
             'error_info': None,
-            'assembly_analysis': None  # 新增：汇编层次分析
+            'assembly_analysis': None,
+            # 新增字段
+            'panic_overview': None,
+            'stack_analysis': None,
+            'register_analysis': None,
         }
         
         try:
@@ -55,37 +73,78 @@ class VmcoredParser:
             if not os.path.exists(vmlinux_path):
                 raise FileNotFoundError(f"vmlinux not found: {vmlinux_path}")
             
-            # 使用 crash 工具获取基本信息
             logger.info(f"Parsing vmcore: {vmcore_path}")
             
+            # ========== 1. 基础信息提取 ==========
+            
             # 获取调用栈
-            bt_result = await self.crash_tool.bt(vmcore_path, vmlinux_path)
-            if bt_result:
-                result['call_stack'] = self._parse_backtrace(bt_result)
+            bt_result = await self.crash_tool.get_backtrace(vmcore_path, vmlinux_path, all_cpus=False)
+            if bt_result.success:
+                result['call_stack'] = self._parse_backtrace(bt_result.output)
             
             # 获取寄存器信息
-            reg_result = await self.crash_tool.regs(vmcore_path, vmlinux_path)
-            if reg_result:
-                result['registers'] = self._parse_registers(reg_result)
+            reg_result = await self.crash_tool.execute(vmcore_path, 'bt -a', vmlinux_path)
+            if reg_result.success:
+                result['registers'] = self._parse_registers_from_bt(reg_result.output)
             
             # 获取加载的模块
-            mod_result = await self.crash_tool.mod(vmcore_path, vmlinux_path)
-            if mod_result:
-                result['modules'] = self._parse_modules(mod_result)
+            mod_result = await self.crash_tool.get_modules(vmcore_path, vmlinux_path)
+            if mod_result.success:
+                result['modules'] = self._parse_modules(mod_result.output)
             
             # 获取系统信息
-            sys_result = await self.crash_tool.sys(vmcore_path, vmlinux_path)
-            if sys_result:
-                result['system_info'] = self._parse_system_info(sys_result)
+            sys_result = await self.crash_tool.get_sys_info(vmcore_path, vmlinux_path)
+            if sys_result.success:
+                result['system_info'] = self._parse_system_info(sys_result.output)
             
             # 分析 crash 类型
             result['crash_type'] = self._analyze_crash_type(
                 result.get('call_stack', []),
                 result.get('registers', {}),
-                bt_result
+                bt_result.output if bt_result.success else None
             )
             
-            # 执行汇编层次分析
+            # ========== 2. Panic 概述提取（新功能） ==========
+            try:
+                logger.info("Extracting panic overview...")
+                panic_overview = await self.panic_extractor.extract(
+                    vmcore_path, vmlinux_path, log_analysis
+                )
+                result['panic_overview'] = panic_overview.to_dict()
+            except Exception as e:
+                logger.error(f"Panic overview extraction failed: {e}")
+                result['panic_overview'] = {'error': str(e)}
+            
+            # ========== 3. 调用栈分析（新功能） ==========
+            try:
+                logger.info("Analyzing call stack...")
+                panic_dict = result.get('panic_overview', {}) if result.get('panic_overview') else None
+                stack_analysis = await self.stack_analyzer.analyze(
+                    vmcore_path, vmlinux_path, panic_dict
+                )
+                result['stack_analysis'] = stack_analysis.to_dict()
+            except Exception as e:
+                logger.error(f"Call stack analysis failed: {e}")
+                result['stack_analysis'] = {'error': str(e)}
+            
+            # ========== 4. 寄存器分析（新功能） ==========
+            try:
+                logger.info("Performing register analysis...")
+                callstack_list = result.get('call_stack', [])
+                register_analysis = await self.register_analyzer.analyze(
+                    vmcore_path, vmlinux_path, callstack_list, panic_dict
+                )
+                result['register_analysis'] = register_analysis.to_dict()
+                
+                # 同时生成格式化报告
+                result['register_analysis_report'] = self.register_analyzer.format_analysis_report(
+                    register_analysis
+                )
+            except Exception as e:
+                logger.error(f"Register analysis failed: {e}")
+                result['register_analysis'] = {'error': str(e)}
+            
+            # ========== 5. 汇编层次分析（原有功能） ==========
             try:
                 result['assembly_analysis'] = await self._perform_assembly_analysis(
                     vmcore_path, vmlinux_path, result
@@ -261,6 +320,30 @@ class VmcoredParser:
                     })
         
         return frames
+    
+    def _parse_registers_from_bt(self, bt_output: str) -> Dict[str, str]:
+        """从 backtrace 输出解析寄存器"""
+        registers = {}
+        
+        # ARM64 寄存器格式
+        # PC: ffffffe91549e3b8  LR: ffffffe91549e390
+        # SP: ffffffc00801bcf0  PSTATE: 604001c5
+        # X0: 0000000000000000  X1: ffffffc02b3cbd88
+        
+        patterns = [
+            (r'(PC)\s*:\s*(0x[0-9a-fA-F]+)', 'pc'),
+            (r'(LR)\s*:\s*(0x[0-9a-fA-F]+)', 'lr'),
+            (r'(SP)\s*:\s*(0x[0-9a-fA-F]+)', 'sp'),
+            (r'(X\d+)\s*:\s*(0x[0-9a-fA-F]+)', None),
+        ]
+        
+        for pattern, key_override in patterns:
+            for match in re.finditer(pattern, bt_output, re.IGNORECASE):
+                reg_name = key_override if key_override else match.group(1).lower()
+                reg_value = match.group(2)
+                registers[reg_name] = reg_value
+        
+        return registers
     
     def _parse_registers(self, reg_output: str) -> Dict[str, str]:
         """解析寄存器输出"""

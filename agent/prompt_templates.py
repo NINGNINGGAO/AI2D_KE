@@ -365,3 +365,146 @@ Key questions to answer:
 6. Hardware issues: bitflips, DMA corruption, memory controller errors?
 
 Provide detailed technical analysis with evidence from the assembly level."""
+
+    @staticmethod
+    def enhanced_analysis_prompt(context: Dict[str, Any]) -> str:
+        """Enhanced analysis prompt using new analyzers."""
+        panic_overview = context.get('panic_overview', {})
+        stack_analysis = context.get('stack_analysis', {})
+        register_analysis = context.get('register_analysis', {})
+        
+        prompt = f"""Perform a comprehensive kernel crash analysis using the following detailed information:
+
+=== PANIC OVERVIEW ===
+"""
+        
+        if panic_overview and 'error' not in panic_overview:
+            prompt += f"""Crash Type: {panic_overview.get('crash_type', 'Unknown')}
+"""
+            if panic_overview.get('crash_subtype'):
+                prompt += f"Subtype: {panic_overview['crash_subtype']}\n"
+            
+            prompt += f"""Process: {panic_overview.get('process_name', 'Unknown')} (PID: {panic_overview.get('pid', 'N/A')})
+CPU: {panic_overview.get('cpu_id', 'N/A')}
+"""
+            if panic_overview.get('kernel_version'):
+                prompt += f"Kernel Version: {panic_overview['kernel_version']}\n"
+            if panic_overview.get('crash_scenario'):
+                prompt += f"Crash Scenario: {panic_overview['crash_scenario']}\n"
+            if panic_overview.get('suspected_module'):
+                prompt += f"Suspected Module: {panic_overview['suspected_module']}\n"
+        else:
+            prompt += "Panic overview not available\n"
+        
+        prompt += f"""
+=== CALL STACK ANALYSIS ===
+"""
+        
+        if stack_analysis and 'error' not in stack_analysis:
+            prompt += f"""Execution Context: {stack_analysis.get('execution_context', 'Unknown')}
+Crash Function: {stack_analysis.get('crash_function', 'Unknown')}
+Entry Point: {stack_analysis.get('entry_point', 'Unknown')}
+"""
+            
+            if stack_analysis.get('subsystem_trace'):
+                prompt += f"Subsystem Trace: {' -> '.join(stack_analysis['subsystem_trace'])}\n"
+            
+            if stack_analysis.get('call_chains'):
+                prompt += "\nCall Chains:\n"
+                for chain in stack_analysis['call_chains'][:5]:
+                    prompt += f"  {chain.get('caller', 'unknown')} -> {chain.get('callee', 'unknown')}\n"
+            
+            if stack_analysis.get('suspicious_patterns'):
+                prompt += "\nSuspicious Patterns:\n"
+                for pattern in stack_analysis['suspicious_patterns'][:3]:
+                    prompt += f"  [{pattern.get('severity', 'low').upper()}] {pattern.get('type')}: {pattern.get('description', '')}\n"
+            
+            if stack_analysis.get('likely_scenarios'):
+                prompt += "\nLikely Scenarios:\n"
+                for i, scenario in enumerate(stack_analysis['likely_scenarios'][:3], 1):
+                    prompt += f"  {i}. {scenario}\n"
+        else:
+            prompt += "Stack analysis not available\n"
+        
+        prompt += f"""
+=== REGISTER ANALYSIS ===
+"""
+        
+        if register_analysis and 'error' not in register_analysis:
+            if register_analysis.get('crash_pc'):
+                prompt += f"Crash PC: {register_analysis['crash_pc']}\n"
+            if register_analysis.get('faulting_address'):
+                prompt += f"Faulting Address: {register_analysis['faulting_address']}\n"
+            
+            if register_analysis.get('suspicious_registers'):
+                prompt += "\nSuspicious Registers:\n"
+                for susp in register_analysis['suspicious_registers'][:5]:
+                    prompt += f"  [{susp.get('severity', 'low').upper()}] {susp.get('register')}: {susp.get('issue')}\n"
+                    if susp.get('likely_cause'):
+                        prompt += f"      Likely Cause: {susp['likely_cause']}\n"
+            
+            if register_analysis.get('register_chain'):
+                prompt += "\nRegister Chain:\n"
+                for entry in register_analysis['register_chain'][:5]:
+                    if 'register' in entry:
+                        mark = "⚠️ " if entry.get('is_suspicious') else "  "
+                        prompt += f"  {mark}{entry.get('register')} = {entry.get('value')}\n"
+            
+            prompt += "\nRoot Cause Analysis:\n"
+            if register_analysis.get('likely_fault_source'):
+                prompt += f"  Fault Source: {register_analysis['likely_fault_source']}\n"
+            if register_analysis.get('root_cause_function'):
+                prompt += f"  Suspected Function: {register_analysis['root_cause_function']}\n"
+        else:
+            prompt += "Register analysis not available\n"
+        
+        prompt += f"""
+=== ANALYSIS TASKS ===
+
+Based on the comprehensive analysis above, please provide:
+
+1. **Executive Summary**:
+   - What happened (in 2-3 sentences)
+   - When/where it happened
+   - Impact severity
+
+2. **Technical Root Cause**:
+   - Specific code path analysis
+   - Why the crash occurred
+   - Which function/module is at fault
+
+3. **Register-Level Analysis**:
+   - Which register caused the crash
+   - How the faulty value got there
+   - Tracing the value through the call stack
+
+4. **Function Call Analysis**:
+   - How did execution reach the crash point
+   - What was the call chain
+   - Any suspicious patterns in the call stack
+
+5. **Fix Recommendations**:
+   - Immediate mitigation
+   - Code-level fix (with pseudocode if applicable)
+   - Testing strategy
+   - Prevention measures
+
+6. **Additional Context**:
+   - Is this a known pattern?
+   - Similar issues to check
+   - Hardware considerations (if applicable)
+
+Provide your analysis in structured format. Be specific and technical."""
+        
+        return prompt
+
+    @staticmethod
+    def get_enhanced_prompt_for_context(context: Dict[str, Any]) -> str:
+        """Get appropriate enhanced prompt based on available analysis."""
+        # 如果有新的分析结果，使用增强版
+        if context.get('panic_overview') or context.get('stack_analysis') or context.get('register_analysis'):
+            return PromptTemplates.enhanced_analysis_prompt(context)
+        
+        # 否则使用原有方法
+        crash_type = context.get('crash_type', 'Unknown')
+        return PromptTemplates.get_prompt_for_crash_type(crash_type, context)

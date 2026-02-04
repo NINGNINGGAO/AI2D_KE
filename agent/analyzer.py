@@ -104,13 +104,12 @@ class CrashAnalyzer:
             raise
     
     async def analyze(self, context: Dict[str, Any]) -> Dict[str, Any]:
-        """Perform AI analysis on crash context."""
+        """Perform AI analysis on crash context - Enhanced version."""
         logger.info(f"Starting AI analysis for {context.get('issue_key')}")
         
         try:
-            # Get appropriate prompt based on crash type
-            crash_type = context.get('crash_type', 'Unknown')
-            user_prompt = self.prompt_templates.get_prompt_for_crash_type(crash_type, context)
+            # 使用增强的分析 prompt
+            user_prompt = self.prompt_templates.get_enhanced_prompt_for_context(context)
             system_prompt = self.prompt_templates.crash_analysis_system_prompt()
             
             # Call AI for analysis
